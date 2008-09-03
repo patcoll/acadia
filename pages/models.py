@@ -5,14 +5,16 @@ from django import newforms as forms
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 
-# Create your models here.
+# ==========
+# = Models =
+# ==========
 class Asset(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, editable=False)
     active = models.BooleanField()
     file_name = models.FileField(upload_to=os.path.abspath('../assets/'), max_length=255)
     title = models.CharField(max_length=255)
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    modified = models.DateTimeField(auto_now=True, editable=False)
     
     def __unicode__(self):
         return self.file_name
@@ -22,8 +24,8 @@ class Block(models.Model):
     name = models.SlugField(max_length=255, unique=True)
     title = models.CharField(max_length=255)
     content = models.TextField()
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    modified = models.DateTimeField(auto_now=True, editable=False)
     
     def __unicode__(self):
         return self.name
@@ -34,8 +36,8 @@ class BlockType(models.Model):
     mock_template = models.BooleanField()
     editor_width = models.IntegerField(default=600)
     editor_height = models.IntegerField(default=700)
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    modified = models.DateTimeField(auto_now=True, editable=False)
     
     def __unicode__(self):
         return self.name
@@ -43,37 +45,33 @@ class BlockType(models.Model):
 class Link(models.Model):
     title = models.CharField(max_length=255)
     url = models.URLField(max_length=255, unique=True)
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    modified = models.DateTimeField(auto_now=True, editable=False)
     
     def __unicode__(self):
         return self.url
 
-class Navigation(models.Model):
+class NavNode(models.Model):
     content_type = models.ForeignKey(ContentType)
     object_id = models.IntegerField()
     content_object = generic.GenericForeignKey('content_type', 'object_id')
     parent = models.ForeignKey('self', blank=True, null=True, related_name='child_set')
     lft = models.IntegerField(blank=True, null=True, editable=False)
     rght = models.IntegerField(blank=True, null=True, editable=False)
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    modified = models.DateTimeField(auto_now=True, editable=False)
+    
+    class Meta:
+        abstract = True
     
     def __unicode__(self):
         return self.content_object
+    
+class Navigation(NavNode):
+    pass
 
-class NotInNavigation(models.Model):
-    content_type = models.ForeignKey(ContentType)
-    object_id = models.IntegerField()
-    content_object = generic.GenericForeignKey('content_type', 'object_id')
-    parent = models.ForeignKey('self', blank=True, null=True, related_name='child_set')
-    lft = models.IntegerField(blank=True, null=True, editable=False)
-    rght = models.IntegerField(blank=True, null=True, editable=False)
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
-    
-    def __unicode__(self):
-        return self.content_object
+class NotInNavigation(NavNode):
+    pass
 
 class Page(models.Model):
     template = models.ForeignKey('Template')
@@ -81,24 +79,24 @@ class Page(models.Model):
     name = models.SlugField(max_length=255, unique=True)
     title = models.CharField(max_length=255)
     blocks = generic.GenericRelation('SiteBlock')
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    modified = models.DateTimeField(auto_now=True, editable=False)
     
     def __unicode__(self):
         return self.title
 
 class PageVersion(models.Model):
     page = models.ForeignKey(Page)
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, editable=False)
     content = models.TextField()
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    modified = models.DateTimeField(auto_now=True, editable=False)
 
 class Setting(models.Model):
     name = models.SlugField(max_length=255, unique=True)
     content = models.TextField()
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    modified = models.DateTimeField(auto_now=True, editable=False)
     
     def __unicode__(self):
         return self.name
@@ -109,16 +107,16 @@ class SiteBlock(models.Model):
     object_id = models.IntegerField()
     content_object = generic.GenericForeignKey('content_type', 'object_id')
     order = models.IntegerField()
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    modified = models.DateTimeField(auto_now=True, editable=False)
     
     def __unicode__(self):
         return self.block.title
 
 class Tag(models.Model):
     title = models.CharField(max_length=255)
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    modified = models.DateTimeField(auto_now=True, editable=False)
     
     def __unicode__(self):
         return self.title
@@ -129,14 +127,33 @@ class Template(models.Model):
     editor_width = models.IntegerField(default=600)
     editor_height = models.IntegerField(default=700)
     blocks = generic.GenericRelation('SiteBlock')
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    modified = models.DateTimeField(auto_now=True, editable=False)
     
     def __unicode__(self):
         return self.name
 
 
+# =========================
+# = Custom Admin Settings =
+# =========================
+from django.contrib import admin
 
+class AssetAdmin(admin.ModelAdmin):
+    fields = ('file_name', 'title', 'active')
+
+
+class PageContentInline(admin.StackedInline):
+    model = PageVersion
+    extra = 1
+class PageAdmin(admin.ModelAdmin):
+    fields = ('title', 'name', 'template')
+    prepopulated_fields = {'name': ('title',)}
+    inlines = [PageContentInline]
+
+
+admin.site.register(Asset, AssetAdmin)
+admin.site.register(Page, PageAdmin)
 
 
 
