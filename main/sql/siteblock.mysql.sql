@@ -1,0 +1,1 @@
+ALTER TABLE `main_siteblock` ENGINE = INNODB;

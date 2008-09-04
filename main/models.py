@@ -4,14 +4,15 @@ from django.contrib.auth.models import User
 from django import newforms as forms
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
+from django.conf import settings
 
 # ==========
 # = Models =
 # ==========
 class Asset(models.Model):
     user = models.ForeignKey(User, editable=False)
-    active = models.BooleanField()
-    file_name = models.FileField(upload_to=os.path.abspath('../assets/'), max_length=255)
+    active = models.BooleanField(default=True)
+    file_name = models.FileField(upload_to=os.path.join(settings.FRONT_END, 'assets'), max_length=255)
     title = models.CharField(max_length=255)
     created = models.DateTimeField(auto_now_add=True, editable=False)
     modified = models.DateTimeField(auto_now=True, editable=False)
@@ -76,6 +77,7 @@ class NotInNavigation(NavNode):
 class Page(models.Model):
     template = models.ForeignKey('Template')
     published_version = models.ForeignKey('PageVersion', related_name='published_version')
+    active = models.BooleanField(default=True)
     name = models.SlugField(max_length=255, unique=True)
     title = models.CharField(max_length=255)
     blocks = generic.GenericRelation('SiteBlock')
@@ -124,8 +126,6 @@ class Tag(models.Model):
 class Template(models.Model):
     name = models.SlugField(max_length=255, unique=True)
     title = models.CharField(max_length=255)
-    editor_width = models.IntegerField(default=600)
-    editor_height = models.IntegerField(default=700)
     blocks = generic.GenericRelation('SiteBlock')
     created = models.DateTimeField(auto_now_add=True, editable=False)
     modified = models.DateTimeField(auto_now=True, editable=False)

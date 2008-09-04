@@ -1,8 +1,28 @@
-# Django settings for cms project.
-import os
+import os, sys
 
-DEBUG = True
+DEPLOYED = False
+
+DEBUG = not(DEPLOYED)
 TEMPLATE_DEBUG = DEBUG
+
+# Paths configuration
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+FRONT_END = os.path.join(ROOT_DIR, 'frontend')
+
+TEMPLATE_CONFIG = {
+    'home': (
+        ('editor_width', 600),
+        ('editor_height', 700),
+    ),
+    'section': (
+        ('editor_width', 600),
+        ('editor_height', 700),
+    ),
+    'interior': (
+        ('editor_width', 600),
+        ('editor_height', 700),
+    )
+}
 
 ADMINS = (
     ('Pat Collins', 'pat@burned.com'),
@@ -36,17 +56,20 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = os.path.join(FRONT_END, 'media')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = ''
+if DEPLOYED:
+    MEDIA_URL = 'http://burned.com/media/'
+else:
+    MEDIA_URL = 'http://localhost:8000/media/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/media/'
+ADMIN_MEDIA_PREFIX = '/adminmedia/'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '+&@ac6%7k!@j2!p@b(uf(fu37!0(sa5v$*o^@n*cm^l2gp-g*$'
@@ -70,7 +93,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.abspath('design'),
+    os.path.abspath('frontend/templates'),
     os.path.abspath('templates'),
 )
 
@@ -80,6 +103,6 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.admin',
-    'cms.pages',
+    'cms.main',
     # 'cms.django_evolution',
 )
