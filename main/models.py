@@ -5,6 +5,7 @@ from django import newforms as forms
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from django.conf import settings
+import mptt
 
 # ==========
 # = Models =
@@ -12,7 +13,7 @@ from django.conf import settings
 class Asset(models.Model):
     user = models.ForeignKey(User, editable=False)
     active = models.BooleanField(default=True)
-    file_name = models.FileField(upload_to=os.path.join(settings.FRONT_END, 'assets'), max_length=255)
+    file_name = models.FileField(upload_to=settings.ASSETS, max_length=255)
     title = models.CharField(max_length=255)
     created = models.DateTimeField(auto_now_add=True, editable=False)
     modified = models.DateTimeField(auto_now=True, editable=False)
@@ -34,11 +35,8 @@ class Block(models.Model):
 class BlockType(models.Model):
     name = models.SlugField(max_length=255, unique=True)
     title = models.CharField(max_length=255)
-    mock_template = models.BooleanField()
-    editor_width = models.IntegerField(default=600)
-    editor_height = models.IntegerField(default=700)
-    created = models.DateTimeField(auto_now_add=True, editable=False)
-    modified = models.DateTimeField(auto_now=True, editable=False)
+    editor_width = models.PositiveIntegerField(default=600)
+    editor_height = models.PositiveIntegerField(default=700)
     
     def __unicode__(self):
         return self.name
@@ -52,27 +50,15 @@ class Link(models.Model):
     def __unicode__(self):
         return self.url
 
-class NavNode(models.Model):
+class Navigation(models.Model):
     content_type = models.ForeignKey(ContentType)
-    object_id = models.IntegerField()
+    object_id = models.PositiveIntegerField()
     content_object = generic.GenericForeignKey('content_type', 'object_id')
-    parent = models.ForeignKey('self', blank=True, null=True, related_name='child_set')
-    lft = models.IntegerField(blank=True, null=True, editable=False)
-    rght = models.IntegerField(blank=True, null=True, editable=False)
-    created = models.DateTimeField(auto_now_add=True, editable=False)
-    modified = models.DateTimeField(auto_now=True, editable=False)
-    
-    class Meta:
-        abstract = True
     
     def __unicode__(self):
         return self.content_object
-    
-class Navigation(NavNode):
-    pass
 
-class NotInNavigation(NavNode):
-    pass
+mptt.register(Navigation)
 
 class Page(models.Model):
     template = models.ForeignKey('Template')
@@ -93,12 +79,13 @@ class PageVersion(models.Model):
     content = models.TextField()
     created = models.DateTimeField(auto_now_add=True, editable=False)
     modified = models.DateTimeField(auto_now=True, editable=False)
+    
+    def __unicode__(self):
+        return self.title
 
 class Setting(models.Model):
     name = models.SlugField(max_length=255, unique=True)
     content = models.TextField()
-    created = models.DateTimeField(auto_now_add=True, editable=False)
-    modified = models.DateTimeField(auto_now=True, editable=False)
     
     def __unicode__(self):
         return self.name
@@ -106,9 +93,9 @@ class Setting(models.Model):
 class SiteBlock(models.Model):
     block = models.ForeignKey(Block)
     content_type = models.ForeignKey(ContentType)
-    object_id = models.IntegerField()
+    object_id = models.PositiveIntegerField()
     content_object = generic.GenericForeignKey('content_type', 'object_id')
-    order = models.IntegerField()
+    order = models.PositiveIntegerField()
     created = models.DateTimeField(auto_now_add=True, editable=False)
     modified = models.DateTimeField(auto_now=True, editable=False)
     
@@ -118,7 +105,6 @@ class SiteBlock(models.Model):
 class Tag(models.Model):
     title = models.CharField(max_length=255)
     created = models.DateTimeField(auto_now_add=True, editable=False)
-    modified = models.DateTimeField(auto_now=True, editable=False)
     
     def __unicode__(self):
         return self.title
@@ -127,8 +113,8 @@ class Template(models.Model):
     name = models.SlugField(max_length=255, unique=True)
     title = models.CharField(max_length=255)
     blocks = generic.GenericRelation('SiteBlock')
-    created = models.DateTimeField(auto_now_add=True, editable=False)
-    modified = models.DateTimeField(auto_now=True, editable=False)
+    editor_width = models.PositiveIntegerField(default=600)
+    editor_height = models.PositiveIntegerField(default=700)
     
     def __unicode__(self):
         return self.name

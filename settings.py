@@ -8,21 +8,13 @@ TEMPLATE_DEBUG = DEBUG
 # Paths configuration
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 FRONT_END = os.path.join(ROOT_DIR, 'frontend')
+ASSETS = os.path.join(FRONT_END, 'assets')
+# Absolute path to the directory that holds media.
+MEDIA_ROOT = os.path.join(FRONT_END, 'media')
 
-TEMPLATE_CONFIG = {
-    'home': (
-        ('editor_width', 600),
-        ('editor_height', 700),
-    ),
-    'section': (
-        ('editor_width', 600),
-        ('editor_height', 700),
-    ),
-    'interior': (
-        ('editor_width', 600),
-        ('editor_height', 700),
-    )
-}
+# PYTHONPATH
+sys.path.append(os.path.join(ROOT_DIR, 'vendor'))
+
 
 ADMINS = (
     ('Pat Collins', 'pat@burned.com'),
@@ -30,10 +22,10 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = 'mysql'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = 'cms'             # Or path to database file if using sqlite3.
-DATABASE_USER = 'root'             # Not used with sqlite3.
-DATABASE_PASSWORD = 'root'         # Not used with sqlite3.
+DATABASE_ENGINE = 'sqlite3'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+DATABASE_NAME = os.path.join(ROOT_DIR, 'db', 'cms.sqlite')             # Or path to database file if using sqlite3.
+DATABASE_USER = ''             # Not used with sqlite3.
+DATABASE_PASSWORD = ''         # Not used with sqlite3.
 DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
 DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
 
@@ -53,10 +45,6 @@ SITE_ID = 1
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
 USE_I18N = True
-
-# Absolute path to the directory that holds media.
-# Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = os.path.join(FRONT_END, 'media')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
@@ -89,12 +77,12 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'cms.urls'
 
+# Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+# Always use forward slashes, even on Windows.
+# Don't forget to use absolute paths, not relative paths.
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    os.path.abspath('frontend/templates'),
-    os.path.abspath('templates'),
+    os.path.join(FRONT_END, 'templates'),
+    os.path.join(ROOT_DIR, 'templates'),
 )
 
 INSTALLED_APPS = (
@@ -104,5 +92,6 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.admin',
     'cms.main',
-    # 'cms.django_evolution',
+    'django_evolution',
+    'mptt',
 )
