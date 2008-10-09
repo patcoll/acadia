@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<django-objects version="1.0">
-    <object pk="1" model="main.blocktype">
-        <field name="name">side</field>
-		<field name="title">Sidebar Block</field>
-    </object>
-</django-objects>

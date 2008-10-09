@@ -12,7 +12,7 @@ ASSETS = os.path.join(FRONT_END, 'assets')
 # Absolute path to the directory that holds media.
 MEDIA_ROOT = os.path.join(FRONT_END, 'media')
 
-# PYTHONPATH
+# add 'vendor' dir to PYTHONPATH
 sys.path.append(os.path.join(ROOT_DIR, 'vendor'))
 
 
@@ -23,7 +23,7 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASE_ENGINE = 'sqlite3'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = os.path.join(ROOT_DIR, 'db', 'cms.sqlite')             # Or path to database file if using sqlite3.
+DATABASE_NAME = os.path.join(ROOT_DIR, 'db.sqlite')             # Or path to database file if using sqlite3.
 DATABASE_USER = ''             # Not used with sqlite3.
 DATABASE_PASSWORD = ''         # Not used with sqlite3.
 DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
@@ -91,7 +91,10 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.admin',
+    'django.contrib.markup',
     'cms.main',
     'django_evolution',
     'mptt',
+    'tagging',
+    'yaml',
 )
