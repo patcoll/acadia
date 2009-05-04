@@ -13,6 +13,7 @@ ASSETS = os.path.join(FRONT_END, 'assets')
 MEDIA_ROOT = os.path.join(FRONT_END, 'media')
 
 # add 'vendor' dir to PYTHONPATH
+sys.path.append('/opt/local/lib/python2.5/site-packages')
 sys.path.append(os.path.join(ROOT_DIR, 'vendor'))
 
 
@@ -22,11 +23,12 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = 'sqlite3'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = os.path.join(ROOT_DIR, 'db.sqlite')             # Or path to database file if using sqlite3.
-DATABASE_USER = ''             # Not used with sqlite3.
-DATABASE_PASSWORD = ''         # Not used with sqlite3.
-DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
+DATABASE_ENGINE = 'mysql'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+# DATABASE_OPTIONS = {"init_command": "SET storage_engine=INNODB"}
+DATABASE_NAME = 'django_cms'             # Or path to database file if using sqlite3.
+DATABASE_USER = 'root'             # Not used with sqlite3.
+DATABASE_PASSWORD = 'root'         # Not used with sqlite3.
+DATABASE_HOST = '127.0.0.1'             # Set to empty string for localhost. Not used with sqlite3.
 DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
 
 # Local time zone for this installation. Choices can be found here:
@@ -57,7 +59,7 @@ else:
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/adminmedia/'
+ADMIN_MEDIA_PREFIX = '/admin/media/'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '+&@ac6%7k!@j2!p@b(uf(fu37!0(sa5v$*o^@n*cm^l2gp-g*$'
@@ -92,6 +94,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.markup',
+    'MySQLdb',
     'cms.main',
     'django_evolution',
     'mptt',

@@ -1,1 +1,0 @@
-ALTER TABLE `main_pageversion` ENGINE = INNODB;
