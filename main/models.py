@@ -6,15 +6,17 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from django.conf import settings
 import mptt, tagging
+from tagging.fields import TagField
 
 # ==========
 # = Models =
 # ==========
 class Asset(models.Model):
-    user = models.ForeignKey(User, editable=False)
+    # user = models.ForeignKey(User, editable=False)
     active = models.BooleanField(default=True)
     file_name = models.FileField(upload_to=settings.ASSETS, max_length=255)
     title = models.CharField(max_length=255)
+    tags = TagField()
     created = models.DateTimeField(auto_now_add=True, editable=False, null=True)
     modified = models.DateTimeField(auto_now=True, editable=False, null=True)
     
@@ -114,7 +116,7 @@ tagging.register(Asset)
 from django.contrib import admin
 
 class AssetAdmin(admin.ModelAdmin):
-    fields = ('file_name', 'title', 'active')
+    fields = ('file_name', 'title', 'active', 'tags')
 
 class PageAdmin(admin.ModelAdmin):
     fields = ('title', 'name', 'template', 'user', 'content', 'active')

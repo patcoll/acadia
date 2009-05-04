@@ -1,13 +1,14 @@
 import os, sys
 
-DEPLOYED = False
+DEBUG = True
 
-DEBUG = not(DEPLOYED)
+DEPLOYED = not(DEBUG)
+
 TEMPLATE_DEBUG = DEBUG
 
 # Paths configuration
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-FRONT_END = os.path.join(ROOT_DIR, 'frontend')
+FRONT_END = os.path.join(ROOT_DIR, 'public')
 ASSETS = os.path.join(FRONT_END, 'assets')
 # Absolute path to the directory that holds media.
 MEDIA_ROOT = os.path.join(FRONT_END, 'media')
