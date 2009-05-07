@@ -7,18 +7,17 @@ DEPLOYED = not(DEBUG)
 TEMPLATE_DEBUG = DEBUG
 
 # Paths configuration
-ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+ROOT_DIR = os.path.dirname(__file__)
 FRONT_END = os.path.join(ROOT_DIR, 'public')
-ASSETS = os.path.join(FRONT_END, 'assets')
 # Absolute path to the directory that holds media.
 MEDIA_ROOT = os.path.join(FRONT_END, 'media')
+ASSETS = os.path.join(MEDIA_ROOT, 'assets')
 
 # add 'vendor' dir to PYTHONPATH
 sys.path.append(os.path.join(ROOT_DIR, 'vendor'))
 
-
 ADMINS = (
-  ('Pat Collins', 'pat@burned.com'),
+  ('Pat Collins', 'pat@walltowall.com'),
 )
 
 MANAGERS = ADMINS
@@ -31,12 +30,17 @@ DATABASE_PASSWORD = 'root'     # Not used with sqlite3.
 DATABASE_HOST = '127.0.0.1'       # Set to empty string for localhost. Not used with sqlite3.
 DATABASE_PORT = ''       # Set to empty string for default. Not used with sqlite3.
 
-class SITE_SETTINGS:
-  admin_email = 'pat@burned.com'
-  site_title = 'Test Site'
-  site_meta_keywords = ''
-  site_meta_description = ''
-  cms_title = 'CMS'
+# ADMIN_EMAIL = 'pat@walltowall.com'
+SITE_TITLE = 'Test Site'
+SITE_META_KEYWORDS = ''
+SITE_META_DESCRIPTION = ''
+CMS_TITLE = 'CMS'
+
+TEMPLATES = {
+  'home': { 'width': 600, 'height': 700 },
+  'section': { 'width': 600, 'height': 700 },
+  'interior': { 'width': 600, 'height': 700 },
+}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -46,7 +50,7 @@ class SITE_SETTINGS:
 TIME_ZONE = 'America/New_York'
 
 # Sessions
-SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+# SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 # Caching
 # CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
 
@@ -64,7 +68,7 @@ USE_I18N = False
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
 if DEPLOYED:
-  MEDIA_URL = 'http://testdomain.com/media/'
+  MEDIA_URL = 'http://testdomain.com/static/media/'
 else:
   MEDIA_URL = '/static/media/'
 
@@ -106,7 +110,7 @@ INSTALLED_APPS = (
   'django.contrib.admin',
   'django.contrib.markup',
   'MySQLdb',
-  'cms.main',
+  'cms.apps.main',
   'django_evolution',
   'mptt',
   'tagging',

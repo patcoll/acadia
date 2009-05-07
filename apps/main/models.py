@@ -1,7 +1,8 @@
 import os
 from django.db import models
 from django.contrib.auth.models import User
-from django import forms
+from tagging.models import Tag
+# from django import forms
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from django.conf import settings
@@ -10,20 +11,29 @@ import tagging.fields
 
 # assert False, settings.SITE_SETTINGS.admin_email
 
+# from django.core.files.storage import FileSystemStorage
+# ASSETS = FileSystemStorage(location=settings.ASSETS)
+
 # ==========
 # = Models =
 # ==========
 class Asset(models.Model):
-  creator = models.ForeignKey(User)
+  user = models.ForeignKey(User)
   # active = models.BooleanField(default=True)
-  file_name = models.FileField(upload_to=settings.ASSETS, max_length=255)
-  title = models.CharField(max_length=255)
+  file_name = models.FileField(upload_to='assets', max_length=255)
+  title = models.CharField(max_length=255, null=True, blank=True)
   tags = tagging.fields.TagField()
   created = models.DateTimeField(auto_now_add=True, editable=False, null=True)
   modified = models.DateTimeField(auto_now=True, editable=False, null=True)
   
   def __unicode__(self):
-    return self.file_name
+    return self.file_name.name
+  
+  def set_tags(self, tags):
+    Tag.objects.update_tags(self, tags)
+    
+  def get_tags(self):
+    return Tag.objects.get_for_object(self)
 tagging.register(Asset)
 
 # class Block(models.Model):
@@ -100,14 +110,14 @@ class Page(models.Model):
 class Template(models.Model):
   name = models.SlugField(max_length=255, unique=True)
   title = models.CharField(max_length=255)
-  blocks = generic.GenericRelation('SiteBlock')
-  editor_width = models.PositiveIntegerField(default=600)
-  editor_height = models.PositiveIntegerField(default=700)
+  # blocks = generic.GenericRelation('SiteBlock')
+  # editor_width = models.PositiveIntegerField(default=600)
+  # editor_height = models.PositiveIntegerField(default=700)
   
   def __unicode__(self):
     return self.name
 
 
-# =============================
-# = Register models with apps =
-# =============================
+# signals
+# import django.db.models.signals
+

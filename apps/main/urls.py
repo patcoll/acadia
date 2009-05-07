@@ -1,7 +1,7 @@
 from django.conf.urls.defaults import *
 from django.conf import settings
 
-urlpatterns = patterns('cms.main.views',
+urlpatterns = patterns('cms.apps.main.views',
   (r'^$', 'page_display', {'page_id': 1}),
   (r'^(?P<page_id>\d+)/?(?P<rest_of_url>.*)$', 'page_display'),
 )
