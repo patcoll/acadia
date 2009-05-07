@@ -14,23 +14,29 @@ ASSETS = os.path.join(FRONT_END, 'assets')
 MEDIA_ROOT = os.path.join(FRONT_END, 'media')
 
 # add 'vendor' dir to PYTHONPATH
-sys.path.append('/opt/local/lib/python2.5/site-packages')
 sys.path.append(os.path.join(ROOT_DIR, 'vendor'))
 
 
 ADMINS = (
-    ('Pat Collins', 'pat@burned.com'),
+  ('Pat Collins', 'pat@burned.com'),
 )
 
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = 'mysql'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+DATABASE_ENGINE = 'mysql'       # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
 # DATABASE_OPTIONS = {"init_command": "SET storage_engine=INNODB"}
-DATABASE_NAME = 'django_cms'             # Or path to database file if using sqlite3.
-DATABASE_USER = 'root'             # Not used with sqlite3.
-DATABASE_PASSWORD = 'root'         # Not used with sqlite3.
-DATABASE_HOST = '127.0.0.1'             # Set to empty string for localhost. Not used with sqlite3.
-DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
+DATABASE_NAME = 'django_cms'       # Or path to database file if using sqlite3.
+DATABASE_USER = 'root'       # Not used with sqlite3.
+DATABASE_PASSWORD = 'root'     # Not used with sqlite3.
+DATABASE_HOST = '127.0.0.1'       # Set to empty string for localhost. Not used with sqlite3.
+DATABASE_PORT = ''       # Set to empty string for default. Not used with sqlite3.
+
+class SITE_SETTINGS:
+  admin_email = 'pat@burned.com'
+  site_title = 'Test Site'
+  site_meta_keywords = ''
+  site_meta_description = ''
+  cms_title = 'CMS'
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -38,6 +44,11 @@ DATABASE_PORT = ''             # Set to empty string for default. Not used with 
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
 TIME_ZONE = 'America/New_York'
+
+# Sessions
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+# Caching
+# CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -47,35 +58,35 @@ SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
-USE_I18N = True
+USE_I18N = False
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
 if DEPLOYED:
-    MEDIA_URL = 'http://burned.com/media/'
+  MEDIA_URL = 'http://testdomain.com/media/'
 else:
-    MEDIA_URL = 'http://localhost:8000/media/'
+  MEDIA_URL = '/static/media/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/admin/media/'
+ADMIN_MEDIA_PREFIX = '/static/admin/media/'
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '+&@ac6%7k!@j2!p@b(uf(fu37!0(sa5v$*o^@n*cm^l2gp-g*$'
+SECRET_KEY = '$*G-PG2L^MC*N@^O*$V5AS(0!73UF(FU(B@P!2J@!K7%6CA@&+'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.load_template_source',
-    'django.template.loaders.app_directories.load_template_source',
-#     'django.template.loaders.eggs.load_template_source',
+  'django.template.loaders.filesystem.load_template_source',
+  'django.template.loaders.app_directories.load_template_source',
+#   'django.template.loaders.eggs.load_template_source',
 )
 
 MIDDLEWARE_CLASSES = (
-    'django.middleware.common.CommonMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
+  'django.middleware.common.CommonMiddleware',
+  'django.contrib.sessions.middleware.SessionMiddleware',
+  'django.contrib.auth.middleware.AuthenticationMiddleware',
 )
 
 ROOT_URLCONF = 'cms.urls'
@@ -84,21 +95,20 @@ ROOT_URLCONF = 'cms.urls'
 # Always use forward slashes, even on Windows.
 # Don't forget to use absolute paths, not relative paths.
 TEMPLATE_DIRS = (
-    os.path.join(FRONT_END, 'templates'),
-    os.path.join(ROOT_DIR, 'templates'),
+  os.path.join(ROOT_DIR, 'templates'),
 )
 
 INSTALLED_APPS = (
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.sites',
-    'django.contrib.admin',
-    'django.contrib.markup',
-    'MySQLdb',
-    'cms.main',
-    'django_evolution',
-    'mptt',
-    'tagging',
-    'yaml',
+  'django.contrib.auth',
+  'django.contrib.contenttypes',
+  'django.contrib.sessions',
+  'django.contrib.sites',
+  'django.contrib.admin',
+  'django.contrib.markup',
+  'MySQLdb',
+  'cms.main',
+  'django_evolution',
+  'mptt',
+  'tagging',
+  'yaml',
 )
