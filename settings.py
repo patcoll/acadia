@@ -111,6 +111,7 @@ INSTALLED_APPS = (
   'django.contrib.markup',
   'MySQLdb',
   'cms.apps.main',
+  'cms.apps.news',
   'django_evolution',
   'mptt',
   'tagging',

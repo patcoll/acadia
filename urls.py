@@ -6,6 +6,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
   (r'', include('cms.apps.main.urls')),
+  (r'^news/',        include('cms.apps.news.urls')),
 
   # Uncomment the next line to enable admin documentation:
   (r'^admin/doc/', include('django.contrib.admindocs.urls')),
