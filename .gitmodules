@@ -1,0 +1,3 @@
+[submodule "apps/cms"]
+	path = apps/cms
+	url = git://github.com/digi604/django-cms-2.0.git
