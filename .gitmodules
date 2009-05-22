@@ -1,3 +1,0 @@
-[submodule "vendor/django_cms"]
-	path = vendor/django_cms
-	url = git://github.com/digi604/django-cms-2.0.git
