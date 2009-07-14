@@ -6,9 +6,9 @@ TEMPLATE_DEBUG = DEBUG
 
 # Paths configuration
 ROOT_DIR = os.path.dirname(__file__)
-FRONT_END = os.path.join(ROOT_DIR, 'public')
+STATIC_FILES = os.path.join(ROOT_DIR, 'static')
 # Absolute path to the directory that holds media.
-MEDIA_ROOT = os.path.join(FRONT_END, 'media')
+MEDIA_ROOT = os.path.join(STATIC_FILES, 'media')
 ASSETS = os.path.join(MEDIA_ROOT, 'assets')
 
 # add 'apps' dir to PYTHONPATH
@@ -111,6 +111,8 @@ INSTALLED_APPS = (
     'mptt',
     'tagging',
     'yaml',
+    'reversion',
+    'south',
     # cms apps
     'pages',
     'news',

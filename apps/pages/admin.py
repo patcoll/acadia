@@ -3,5 +3,5 @@ from models import Page
 
 class PageAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
-    exclude = ('template',)
+    exclude = ('template','user')
 admin.site.register(Page, PageAdmin)
