@@ -2,8 +2,6 @@ import os, sys
 
 DEBUG = True
 
-DEPLOYED = not(DEBUG)
-
 TEMPLATE_DEBUG = DEBUG
 
 # Paths configuration
@@ -13,7 +11,7 @@ FRONT_END = os.path.join(ROOT_DIR, 'public')
 MEDIA_ROOT = os.path.join(FRONT_END, 'media')
 ASSETS = os.path.join(MEDIA_ROOT, 'assets')
 
-# add 'vendor' dir to PYTHONPATH
+# add 'apps' dir to PYTHONPATH
 sys.path.append(os.path.join(ROOT_DIR, 'apps'))
 
 ADMINS = (
@@ -62,15 +60,15 @@ SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
-USE_I18N = False
+USE_I18N = True
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-if DEPLOYED:
-    MEDIA_URL = 'http://testdomain.com/static/media/'
-else:
+if DEBUG:
     MEDIA_URL = '/static/media/'
+else:
+    MEDIA_URL = 'http://testdomain.com/static/media/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
@@ -110,10 +108,10 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.markup',
     'MySQLdb',
-    'main',
-    'news',
-    'django_evolution',
     'mptt',
     'tagging',
     'yaml',
+    # cms apps
+    'pages',
+    'news',
 )

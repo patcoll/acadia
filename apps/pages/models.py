@@ -17,24 +17,24 @@ import tagging.fields
 # ==========
 # = Models =
 # ==========
-class Asset(models.Model):
-  user = models.ForeignKey(User)
-  # active = models.BooleanField(default=True)
-  file_name = models.FileField(upload_to='assets', max_length=255)
-  title = models.CharField(max_length=255, null=True, blank=True)
-  tags = tagging.fields.TagField()
-  created = models.DateTimeField(auto_now_add=True, editable=False, null=True)
-  modified = models.DateTimeField(auto_now=True, editable=False, null=True)
-  
-  def __unicode__(self):
-    return self.file_name.name
-  
-  def set_tags(self, tags):
-    Tag.objects.update_tags(self, tags)
-    
-  def get_tags(self):
-    return Tag.objects.get_for_object(self)
-tagging.register(Asset)
+# class Asset(models.Model):
+#   user = models.ForeignKey(User)
+#   # active = models.BooleanField(default=True)
+#   file_name = models.FileField(upload_to='assets', max_length=255)
+#   title = models.CharField(max_length=255, null=True, blank=True)
+#   tags = tagging.fields.TagField()
+#   created = models.DateTimeField(auto_now_add=True, editable=False, null=True)
+#   modified = models.DateTimeField(auto_now=True, editable=False, null=True)
+#   
+#   def __unicode__(self):
+#     return self.file_name.name
+#   
+#   def set_tags(self, tags):
+#     Tag.objects.update_tags(self, tags)
+#     
+#   def get_tags(self):
+#     return Tag.objects.get_for_object(self)
+# tagging.register(Asset)
 
 # class Block(models.Model):
 #   block_type = models.ForeignKey('BlockType')
@@ -65,20 +65,20 @@ tagging.register(Asset)
 #   def __unicode__(self):
 #     return self.url
 
-class Navigation(models.Model):
-  content_type = models.ForeignKey(ContentType)
-  object_id = models.PositiveIntegerField()
-  content_object = generic.GenericForeignKey('content_type', 'object_id')
-  
-  def __unicode__(self):
-    return self.content_object
-mptt.register(Navigation)
+# class Navigation(models.Model):
+#   content_type = models.ForeignKey(ContentType)
+#   object_id = models.PositiveIntegerField()
+#   content_object = generic.GenericForeignKey('content_type', 'object_id')
+#   
+#   def __unicode__(self):
+#     return self.content_object
+# mptt.register(Navigation)
 
 class Page(models.Model):
-  template = models.ForeignKey('Template')
+  template = models.CharField(max_length=255)
   user = models.ForeignKey(User)
   active = models.BooleanField(default=True)
-  name = models.SlugField(max_length=255)
+  slug = models.SlugField(max_length=255)
   title = models.CharField(max_length=255)
   content = models.TextField(help_text="You may use Markdown here.")
   # blocks = generic.GenericRelation('SiteBlock')
@@ -107,15 +107,15 @@ class Page(models.Model):
 #   def __unicode__(self):
 #     return self.block.title
 
-class Template(models.Model):
-  name = models.SlugField(max_length=255, unique=True)
-  title = models.CharField(max_length=255)
-  # blocks = generic.GenericRelation('SiteBlock')
-  # editor_width = models.PositiveIntegerField(default=600)
-  # editor_height = models.PositiveIntegerField(default=700)
-  
-  def __unicode__(self):
-    return self.name
+# class Template(models.Model):
+#   name = models.SlugField(max_length=255, unique=True)
+#   title = models.CharField(max_length=255)
+#   # blocks = generic.GenericRelation('SiteBlock')
+#   # editor_width = models.PositiveIntegerField(default=600)
+#   # editor_height = models.PositiveIntegerField(default=700)
+#   
+#   def __unicode__(self):
+#     return self.name
 
 
 # signals
