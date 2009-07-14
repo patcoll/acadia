@@ -14,10 +14,10 @@ MEDIA_ROOT = os.path.join(FRONT_END, 'media')
 ASSETS = os.path.join(MEDIA_ROOT, 'assets')
 
 # add 'vendor' dir to PYTHONPATH
-sys.path.append(os.path.join(ROOT_DIR, 'vendor'))
+sys.path.append(os.path.join(ROOT_DIR, 'apps'))
 
 ADMINS = (
-  ('Pat Collins', 'pat@walltowall.com'),
+    ('Pat Collins', 'pat@walltowall.com'),
 )
 
 MANAGERS = ADMINS
@@ -37,9 +37,9 @@ SITE_META_DESCRIPTION = ''
 CMS_TITLE = 'CMS'
 
 TEMPLATES = {
-  'home': { 'width': 600, 'height': 700 },
-  'section': { 'width': 600, 'height': 700 },
-  'interior': { 'width': 600, 'height': 700 },
+    'home': { 'width': 600, 'height': 700 },
+    'section': { 'width': 600, 'height': 700 },
+    'interior': { 'width': 600, 'height': 700 },
 }
 
 # Local time zone for this installation. Choices can be found here:
@@ -68,9 +68,9 @@ USE_I18N = False
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
 if DEPLOYED:
-  MEDIA_URL = 'http://testdomain.com/static/media/'
+    MEDIA_URL = 'http://testdomain.com/static/media/'
 else:
-  MEDIA_URL = '/static/media/'
+    MEDIA_URL = '/static/media/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
@@ -82,15 +82,15 @@ SECRET_KEY = '$*G-PG2L^MC*N@^O*$V5AS(0!73UF(FU(B@P!2J@!K7%6CA@&+'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
-  'django.template.loaders.filesystem.load_template_source',
-  'django.template.loaders.app_directories.load_template_source',
-#   'django.template.loaders.eggs.load_template_source',
+    'django.template.loaders.filesystem.load_template_source',
+    'django.template.loaders.app_directories.load_template_source',
+    # 'django.template.loaders.eggs.load_template_source',
 )
 
 MIDDLEWARE_CLASSES = (
-  'django.middleware.common.CommonMiddleware',
-  'django.contrib.sessions.middleware.SessionMiddleware',
-  'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
 )
 
 ROOT_URLCONF = 'cms.urls'
@@ -99,21 +99,21 @@ ROOT_URLCONF = 'cms.urls'
 # Always use forward slashes, even on Windows.
 # Don't forget to use absolute paths, not relative paths.
 TEMPLATE_DIRS = (
-  os.path.join(ROOT_DIR, 'templates'),
+    os.path.join(ROOT_DIR, 'templates'),
 )
 
 INSTALLED_APPS = (
-  'django.contrib.auth',
-  'django.contrib.contenttypes',
-  'django.contrib.sessions',
-  'django.contrib.sites',
-  'django.contrib.admin',
-  'django.contrib.markup',
-  'MySQLdb',
-  'cms.apps.main',
-  'cms.apps.news',
-  'django_evolution',
-  'mptt',
-  'tagging',
-  'yaml',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.admin',
+    'django.contrib.markup',
+    'MySQLdb',
+    'main',
+    'news',
+    'django_evolution',
+    'mptt',
+    'tagging',
+    'yaml',
 )
