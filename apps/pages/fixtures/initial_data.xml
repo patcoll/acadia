@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<django-objects version="1.0">
+  <object pk="1" model="auth.user">
+    <field name="username">patcoll</field>
+    <field name="first_name">Pat</field>
+    <field name="last_name">Collins</field>
+    <field name="email">pat@walltowall.com</field>
+    <field name="password">sha1$16588$f2c27e8d5a1a4687f32f59386283621fed8a32d2</field> <!-- wall -->
+    <field name="is_staff">1</field>
+    <field name="is_active">1</field>
+    <field name="is_superuser">1</field>
+  </object>
+  <!-- <object pk="2" model="auth.user">
+    <field name="username">wallwall</field>
+    <field name="first_name">Wall-to-Wall</field>
+    <field name="last_name">Studios</field>
+    <field name="email">pat@walltowall.com</field>
+    <field name="password">sha1$edd5b$b2fe1ed281fc08f3b31b55c2899960053225a520</field>
+    <field name="is_staff">0</field>
+    <field name="is_active">1</field>
+    <field name="is_superuser">0</field>
+  </object> -->
+  <!-- <object pk="1" model="pages.blocktype">
+    <field name="name">side</field>
+    <field name="title">Sidebar Block</field>
+  </object> -->
+  <object pk="1" model="pages.page">
+    <field name="template">1</field>
+    <field name="user">1</field>
+    <field name="published">1</field>
+    <field name="name">home</field>
+    <field name="title">Home Page</field>
+    <field name="content">home page content.</field>
+  </object>
+  <object pk="2" model="pages.page">
+    <field name="template">2</field>
+    <field name="user">1</field>
+    <field name="published">1</field>
+    <field name="name">about-us</field>
+    <field name="title">About Us</field>
+    <field name="content">we are awesome.</field>
+  </object>
+  <object pk="3" model="pages.page">
+    <field name="template">3</field>
+    <field name="user">1</field>
+    <field name="published">1</field>
+    <field name="name">our-mission</field>
+    <field name="title">Our Mission</field>
+    <field name="content">our mission statement is long and pointless.</field>
+  </object>
+  <!-- <object pk="1" model="tagging.tag">
+    <field name="name">image</field>
+  </object>
+  <object pk="2" model="tagging.tag">
+    <field name="name">document</field>
+  </object> -->
+  <object pk="1" model="pages.template">
+    <field name="name">home</field>
+    <field name="title">Home Page template</field>
+  </object>
+  <object pk="2" model="pages.template">
+    <field name="name">section</field>
+    <field name="title">Section Page template</field>
+  </object>
+  <object pk="3" model="pages.template">
+    <field name="name">interior</field>
+    <field name="title">Interior Page template</field>
+  </object>
+</django-objects>

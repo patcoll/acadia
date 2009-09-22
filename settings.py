@@ -1,30 +1,24 @@
-import os, sys
+import os.path
 
 DEBUG = True
-
-DEPLOYED = not(DEBUG)
-
 TEMPLATE_DEBUG = DEBUG
 
 # Paths configuration
-ROOT_DIR = os.path.dirname(__file__)
-FRONT_END = os.path.join(ROOT_DIR, 'public')
+CURDIR = os.path.realpath(os.path.dirname(__file__))
+
 # Absolute path to the directory that holds media.
-MEDIA_ROOT = os.path.join(FRONT_END, 'media')
+MEDIA_ROOT = os.path.join(CURDIR, 'media')
 ASSETS = os.path.join(MEDIA_ROOT, 'assets')
 
-# add 'vendor' dir to PYTHONPATH
-sys.path.append(os.path.join(ROOT_DIR, 'vendor'))
-
 ADMINS = (
-  ('Pat Collins', 'pat@walltowall.com'),
+    ('Pat Collins', 'pat@walltowall.com'),
 )
 
 MANAGERS = ADMINS
 
 DATABASE_ENGINE = 'mysql'       # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
 # DATABASE_OPTIONS = {"init_command": "SET storage_engine=INNODB"}
-DATABASE_NAME = 'django_cms'       # Or path to database file if using sqlite3.
+DATABASE_NAME = 'newcms'       # Or path to database file if using sqlite3.
 DATABASE_USER = 'root'       # Not used with sqlite3.
 DATABASE_PASSWORD = 'root'     # Not used with sqlite3.
 DATABASE_HOST = '127.0.0.1'       # Set to empty string for localhost. Not used with sqlite3.
@@ -36,11 +30,11 @@ SITE_META_KEYWORDS = ''
 SITE_META_DESCRIPTION = ''
 CMS_TITLE = 'CMS'
 
-TEMPLATES = {
-  'home': { 'width': 600, 'height': 700 },
-  'section': { 'width': 600, 'height': 700 },
-  'interior': { 'width': 600, 'height': 700 },
-}
+# TEMPLATES = {
+#     'home': { 'width': 600, 'height': 700 },
+#     'section': { 'width': 600, 'height': 700 },
+#     'interior': { 'width': 600, 'height': 700 },
+# }
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -62,15 +56,17 @@ SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
-USE_I18N = False
+USE_I18N = True
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-if DEPLOYED:
-  MEDIA_URL = 'http://testdomain.com/static/media/'
-else:
-  MEDIA_URL = '/static/media/'
+MEDIA_URL = '/static/media/'
+
+# if DEBUG:
+#     MEDIA_URL = '/static/media/'
+# else:
+#     MEDIA_URL = 'http://testdomain.com/static/media/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
@@ -82,38 +78,42 @@ SECRET_KEY = '$*G-PG2L^MC*N@^O*$V5AS(0!73UF(FU(B@P!2J@!K7%6CA@&+'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
-  'django.template.loaders.filesystem.load_template_source',
-  'django.template.loaders.app_directories.load_template_source',
-#   'django.template.loaders.eggs.load_template_source',
+    'django.template.loaders.filesystem.load_template_source',
+    'django.template.loaders.app_directories.load_template_source',
+    # 'django.template.loaders.eggs.load_template_source',
 )
 
 MIDDLEWARE_CLASSES = (
-  'django.middleware.common.CommonMiddleware',
-  'django.contrib.sessions.middleware.SessionMiddleware',
-  'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
 )
 
-ROOT_URLCONF = 'cms.urls'
+# to append slash, always have trailing slash in urlconf
+APPEND_SLASH = True
+ROOT_URLCONF = 'urls'
 
 # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
 # Always use forward slashes, even on Windows.
 # Don't forget to use absolute paths, not relative paths.
 TEMPLATE_DIRS = (
-  os.path.join(ROOT_DIR, 'templates'),
+    os.path.join(CURDIR, 'templates'),
 )
 
 INSTALLED_APPS = (
-  'django.contrib.auth',
-  'django.contrib.contenttypes',
-  'django.contrib.sessions',
-  'django.contrib.sites',
-  'django.contrib.admin',
-  'django.contrib.markup',
-  'MySQLdb',
-  'cms.apps.main',
-  'cms.apps.news',
-  'django_evolution',
-  'mptt',
-  'tagging',
-  'yaml',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.admin',
+    'django.contrib.markup',
+    'MySQLdb',
+    'mptt',
+    'tagging',
+    'yaml',
+    'reversion',
+    'south',
+    # cms apps
+    'apps.pages',
+    'apps.news',
 )
