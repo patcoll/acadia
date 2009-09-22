@@ -1,18 +1,14 @@
-import os, sys
+import os.path
 
 DEBUG = True
-
 TEMPLATE_DEBUG = DEBUG
 
 # Paths configuration
-ROOT_DIR = os.path.dirname(__file__)
-STATIC_FILES = os.path.join(ROOT_DIR, 'static')
-# Absolute path to the directory that holds media.
-MEDIA_ROOT = os.path.join(STATIC_FILES, 'media')
-ASSETS = os.path.join(MEDIA_ROOT, 'assets')
+CURDIR = os.path.realpath(os.path.dirname(__file__))
 
-# add 'apps' dir to PYTHONPATH
-sys.path.append(os.path.join(ROOT_DIR, 'apps'))
+# Absolute path to the directory that holds media.
+MEDIA_ROOT = os.path.join(CURDIR, 'media')
+ASSETS = os.path.join(MEDIA_ROOT, 'assets')
 
 ADMINS = (
     ('Pat Collins', 'pat@walltowall.com'),
@@ -22,7 +18,7 @@ MANAGERS = ADMINS
 
 DATABASE_ENGINE = 'mysql'       # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
 # DATABASE_OPTIONS = {"init_command": "SET storage_engine=INNODB"}
-DATABASE_NAME = 'django_cms'       # Or path to database file if using sqlite3.
+DATABASE_NAME = 'newcms'       # Or path to database file if using sqlite3.
 DATABASE_USER = 'root'       # Not used with sqlite3.
 DATABASE_PASSWORD = 'root'     # Not used with sqlite3.
 DATABASE_HOST = '127.0.0.1'       # Set to empty string for localhost. Not used with sqlite3.
@@ -34,11 +30,11 @@ SITE_META_KEYWORDS = ''
 SITE_META_DESCRIPTION = ''
 CMS_TITLE = 'CMS'
 
-TEMPLATES = {
-    'home': { 'width': 600, 'height': 700 },
-    'section': { 'width': 600, 'height': 700 },
-    'interior': { 'width': 600, 'height': 700 },
-}
+# TEMPLATES = {
+#     'home': { 'width': 600, 'height': 700 },
+#     'section': { 'width': 600, 'height': 700 },
+#     'interior': { 'width': 600, 'height': 700 },
+# }
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -65,10 +61,12 @@ USE_I18N = True
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-if DEBUG:
-    MEDIA_URL = '/static/media/'
-else:
-    MEDIA_URL = 'http://testdomain.com/static/media/'
+MEDIA_URL = '/static/media/'
+
+# if DEBUG:
+#     MEDIA_URL = '/static/media/'
+# else:
+#     MEDIA_URL = 'http://testdomain.com/static/media/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
@@ -91,13 +89,15 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 )
 
-ROOT_URLCONF = 'cms.urls'
+# to append slash, always have trailing slash in urlconf
+APPEND_SLASH = True
+ROOT_URLCONF = 'urls'
 
 # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
 # Always use forward slashes, even on Windows.
 # Don't forget to use absolute paths, not relative paths.
 TEMPLATE_DIRS = (
-    os.path.join(ROOT_DIR, 'templates'),
+    os.path.join(CURDIR, 'templates'),
 )
 
 INSTALLED_APPS = (
@@ -114,6 +114,6 @@ INSTALLED_APPS = (
     'reversion',
     'south',
     # cms apps
-    'pages',
-    'news',
+    'apps.pages',
+    'apps.news',
 )
