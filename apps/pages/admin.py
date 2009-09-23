@@ -18,12 +18,6 @@ class PageAdmin(VersionAdmin):
     include = ('title', 'name', 'content')
     
     def save_model(self, request, obj, form, change):
-        try:
-            if obj.template:
-                pass
-        except:
-            from models import Template
-            obj.template = Template(name="interior")
         if not change:
             obj.user = request.user
         obj.save()

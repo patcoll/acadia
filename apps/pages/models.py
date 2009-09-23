@@ -74,7 +74,7 @@ tagging.register(Asset)
 # mptt.register(Navigation)
 
 class Page(models.Model):
-    template = models.ForeignKey('Template')
+    template = models.ForeignKey('Template', default=lambda: Template.objects.get(name="interior").id)
     user = models.ForeignKey(User)
     published = models.BooleanField(default=True)
     name = models.SlugField(max_length=255)

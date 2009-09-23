@@ -10,6 +10,5 @@ urlpatterns = patterns('',
 if settings.DEBUG:
     import os.path
     urlpatterns += patterns('',
-        (r'^static/media/(.*)$', 'django.views.static.serve', dict(document_root=settings.MEDIA_ROOT)),
-        (r'^static/assets/(.*)$', 'django.views.static.serve', dict(document_root=settings.ASSETS)),
+        (r'^pages/media/(.*)$', 'django.views.static.serve', dict(document_root=os.path.join(os.path.dirname(__file__), "media", "pages"))),
     )
