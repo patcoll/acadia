@@ -1,6 +1,6 @@
 from django.contrib import admin
 from reversion.admin import VersionAdmin
-from models import Page
+from models import *
 
 class PageAdmin(VersionAdmin):
     list_display = ('title', 'published', 'modified')
@@ -22,3 +22,12 @@ class PageAdmin(VersionAdmin):
             obj.user = request.user
         obj.save()
 admin.site.register(Page, PageAdmin)
+
+class TemplateAdmin(admin.ModelAdmin):
+    fieldsets = (
+        ('Editor dimensions', {
+            'fields': ('editor_width', 'editor_height',)
+        }),
+    )
+
+admin.site.register(Template, TemplateAdmin)
