@@ -10,6 +10,10 @@ def do_navigation(parser, token):
     except ValueError:
         raise template.TemplateSyntaxError, "%r tag requires a single argument" % token.contents.split()[0]
 
+    # TODO: section_nav
+    # TODO: sitemap
+    # TODO: two_level
+    # TODO: yahoo_menu_bar
     navigation_options = ("breadcrumb",)
     if navigation_mode not in navigation_options:
         raise ValueError, "%r is not a valid navigation mode" % str(navigation_mode)
