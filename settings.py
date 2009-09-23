@@ -100,6 +100,8 @@ TEMPLATE_DIRS = (
     os.path.join(CURDIR, 'templates'),
 )
 
+NAVIGATION_XML = os.path.join(CURDIR, 'util', 'navigation.xml')
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
