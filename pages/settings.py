@@ -1,3 +1,6 @@
 import os.path
 
-NAVIGATION_XML = os.path.join(os.path.dirname(__file__), 'navigation.xml')
+CURDIR = os.path.dirname(os.path.realpath(__file__))
+
+SITEMAP_FILE = os.path.join(CURDIR, 'sitemap.yml')
+NAVIGATION_XML = os.path.join(CURDIR, 'navigation.xml')
