@@ -100,8 +100,6 @@ TEMPLATE_DIRS = (
     os.path.join(CURDIR, 'templates'),
 )
 
-NAVIGATION_XML = os.path.join(CURDIR, 'util', 'navigation.xml')
-
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -116,6 +114,6 @@ INSTALLED_APPS = (
     'reversion',
     'south',
     # cms apps
-    'apps.pages',
-    'apps.news',
+    'pages',
+    'news',
 )

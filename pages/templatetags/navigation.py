@@ -1,4 +1,4 @@
-from django.conf import settings
+from pages import settings
 from django import template
 
 register = template.Library()
@@ -25,7 +25,7 @@ def do_navigation(parser, token):
         value = c
         if obj.get("class"):
             value = "%s %s" % (obj.get("class"), value)
-        obj.set("class", value)
+        return obj.set("class", value)
     
     class NavigationNode(template.Node):
         def __init__(self, mode):
