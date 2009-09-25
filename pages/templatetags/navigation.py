@@ -41,7 +41,7 @@ class NavigationNode(template.Node):
             raise ValueError, "the variable 'nav_node' must exist in the context and be assigned to the object currently being viewed in the navigation"
         
         self.content_type = ContentType.objects.get_for_model(nav_node)
-        self.menus = dict((menu.get("title"), menu) for menu in self.tree.getiterator("menu"))
+        self.menus = dict((menu.get("name"), menu) for menu in self.tree.getiterator("menu"))
         self.navigation = self.menus['navigation']
         self.parent_map = dict((c, p) for p in self.tree.getiterator() for c in p)
         

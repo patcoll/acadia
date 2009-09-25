@@ -17,7 +17,9 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASE_ENGINE = 'mysql'       # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-# DATABASE_OPTIONS = {"init_command": "SET storage_engine=INNODB"}
+DATABASE_OPTIONS = {
+    # "init_command": "SET storage_engine=INNODB",
+}
 DATABASE_NAME = 'newcms'       # Or path to database file if using sqlite3.
 DATABASE_USER = 'root'       # Not used with sqlite3.
 DATABASE_PASSWORD = 'root'     # Not used with sqlite3.

@@ -24,6 +24,20 @@
     <field name="name">side</field>
     <field name="title">Sidebar Block</field>
   </object> -->
+  <!-- templates -->
+  <object pk="1" model="pages.template">
+    <field name="name">home</field>
+    <field name="title">Home Page template</field>
+  </object>
+  <object pk="2" model="pages.template">
+    <field name="name">section</field>
+    <field name="title">Section Page template</field>
+  </object>
+  <object pk="3" model="pages.template">
+    <field name="name">interior</field>
+    <field name="title">Interior Page template</field>
+  </object>
+  <!-- pages -->
   <object pk="1" model="pages.page">
     <field name="template">1</field>
     <field name="user">1</field>
@@ -54,16 +68,4 @@
   <object pk="2" model="tagging.tag">
     <field name="name">document</field>
   </object> -->
-  <object pk="1" model="pages.template">
-    <field name="name">home</field>
-    <field name="title">Home Page template</field>
-  </object>
-  <object pk="2" model="pages.template">
-    <field name="name">section</field>
-    <field name="title">Section Page template</field>
-  </object>
-  <object pk="3" model="pages.template">
-    <field name="name">interior</field>
-    <field name="title">Interior Page template</field>
-  </object>
 </django-objects>
