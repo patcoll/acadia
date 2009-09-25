@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <django-objects version="1.0">
+  <!-- users -->
   <object pk="1" model="auth.user">
     <field name="username">patcoll</field>
     <field name="first_name">Pat</field>
@@ -26,41 +27,513 @@
   </object> -->
   <!-- templates -->
   <object pk="1" model="pages.template">
-    <field name="name">home</field>
-    <field name="title">Home Page template</field>
+    <field type="SlugField" name="name">home</field>
+    <field type="CharField" name="title">Home Page template</field>
+    <field type="PositiveIntegerField" name="editor_width">600</field>
+    <field type="PositiveIntegerField" name="editor_height">700</field>
   </object>
   <object pk="2" model="pages.template">
-    <field name="name">section</field>
-    <field name="title">Section Page template</field>
+    <field type="SlugField" name="name">section</field>
+    <field type="CharField" name="title">Section Page template</field>
+    <field type="PositiveIntegerField" name="editor_width">600</field>
+    <field type="PositiveIntegerField" name="editor_height">700</field>
   </object>
   <object pk="3" model="pages.template">
-    <field name="name">interior</field>
-    <field name="title">Interior Page template</field>
+    <field type="SlugField" name="name">interior</field>
+    <field type="CharField" name="title">Interior Page template</field>
+    <field type="PositiveIntegerField" name="editor_width">600</field>
+    <field type="PositiveIntegerField" name="editor_height">700</field>
   </object>
   <!-- pages -->
-  <object pk="1" model="pages.page">
-    <field name="template">1</field>
-    <field name="user">1</field>
-    <field name="published">1</field>
-    <field name="name">home</field>
-    <field name="title">Home Page</field>
-    <field name="content">home page content.</field>
+  <object pk="39" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">accumsan-vulputate</field>
+    <field type="CharField" name="title">Accumsan Vulputate</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
   </object>
-  <object pk="2" model="pages.page">
-    <field name="template">2</field>
-    <field name="user">1</field>
-    <field name="published">1</field>
-    <field name="name">about-us</field>
-    <field name="title">About Us</field>
-    <field name="content">we are awesome.</field>
+  <object pk="4" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">aliquam-interdum</field>
+    <field type="CharField" name="title">Aliquam Interdum</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="33" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">amet-leo-commodo-mattis</field>
+    <field type="CharField" name="title">Amet Leo Commodo-Mattis</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="27" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">congue-vel</field>
+    <field type="CharField" name="title">Congue Vel</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="32" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">consectetur-magna</field>
+    <field type="CharField" name="title">Consectetur Magna</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="48" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">consectetur-tellus</field>
+    <field type="CharField" name="title">Consectetur Tellus</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="21" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">curabitur-feugiat</field>
+    <field type="CharField" name="title">Curabitur Feugiat</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="45" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">curabitur-tempor-lobortis</field>
+    <field type="CharField" name="title">Curabitur Tempor Lobortis</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="47" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">dolor-bibendum</field>
+    <field type="CharField" name="title">Dolor Bibendum</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="46" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">donec-fermentum</field>
+    <field type="CharField" name="title">Donec Fermentum</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="23" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">donec-tempus</field>
+    <field type="CharField" name="title">Donec Tempus</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="6" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">duis-faucibus</field>
+    <field type="CharField" name="title">Duis Faucibus</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="10" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">elementum</field>
+    <field type="CharField" name="title">Elementum</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="43" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">faucibus-sodales-ornare</field>
+    <field type="CharField" name="title">Faucibus Sodales Ornare</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
   </object>
   <object pk="3" model="pages.page">
-    <field name="template">3</field>
-    <field name="user">1</field>
-    <field name="published">1</field>
-    <field name="name">our-mission</field>
-    <field name="title">Our Mission</field>
-    <field name="content">our mission statement is long and pointless.</field>
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">fermentum-viverra</field>
+    <field type="CharField" name="title">Fermentum Viverra</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="36" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">fusce-a-purus</field>
+    <field type="CharField" name="title">Fusce a Purus</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="26" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">habitasse</field>
+    <field type="CharField" name="title">Habitasse</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="29" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">habitasse-platea</field>
+    <field type="CharField" name="title">Habitasse Platea</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="42" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">hendrerit</field>
+    <field type="CharField" name="title">Hendrerit</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="1" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">home</field>
+    <field type="CharField" name="title">Home</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="14" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">lacinia-scelerisque</field>
+    <field type="CharField" name="title">Lacinia Scelerisque</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="34" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">laoreet-est-cursus</field>
+    <field type="CharField" name="title">Laoreet Est Cursus</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="22" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">laoreet-sed-pellentesque</field>
+    <field type="CharField" name="title">Laoreet Sed Pellentesque</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="11" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">lectus-felis-vel</field>
+    <field type="CharField" name="title">Lectus Felis Vel</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="40" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">lobortis-rhoncus</field>
+    <field type="CharField" name="title">Lobortis Rhoncus</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="18" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">maecenas-dapibus</field>
+    <field type="CharField" name="title">Maecenas Dapibus</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="37" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">maecenas-quis</field>
+    <field type="CharField" name="title">Maecenas Quis</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="8" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">mauris</field>
+    <field type="CharField" name="title">Mauris</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="13" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">metus-et-orci</field>
+    <field type="CharField" name="title">Metus Et Orci</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="38" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">nulla-commodo-nisl</field>
+    <field type="CharField" name="title">Nulla Commodo Nisl</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="16" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">nulla-quam-sem</field>
+    <field type="CharField" name="title">Nulla Quam Sem</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="17" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">nunc-at-hendrerit-erat</field>
+    <field type="CharField" name="title">Nunc at Hendrerit Erat</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="31" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">nunc-lacinia-eleifend</field>
+    <field type="CharField" name="title">Nunc Lacinia Eleifend</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="15" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">nunc-nec-justo</field>
+    <field type="CharField" name="title">Nunc Nec Justo</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="28" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">nunc-pulvinar-luctus</field>
+    <field type="CharField" name="title">Nunc Pulvinar Luctus</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="7" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">ornare-ultrices-turpis</field>
+    <field type="CharField" name="title">Ornare Ultrices Turpis</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="49" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">pellentesque</field>
+    <field type="CharField" name="title">Pellentesque</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="19" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">pellentesque-nibh</field>
+    <field type="CharField" name="title">Pellentesque Nibh</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="30" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">phasellus</field>
+    <field type="CharField" name="title">Phasellus</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="5" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">phasellus-at-nisl</field>
+    <field type="CharField" name="title">Phasellus at Nisl</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="35" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">porttitor-et-interdum</field>
+    <field type="CharField" name="title">Porttitor Et Interdum</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="41" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">purus-ut-gravida-iaculis</field>
+    <field type="CharField" name="title">Purus Ut Gravida Iaculis</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="12" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">quisque-pretium</field>
+    <field type="CharField" name="title">Quisque Pretium</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="44" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">sodales</field>
+    <field type="CharField" name="title">Sodales</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="9" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">sodales-vel-viverra</field>
+    <field type="CharField" name="title">Sodales Vel Viverra</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="24" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">sollicitudin-sapien</field>
+    <field type="CharField" name="title">Sollicitudin Sapien</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="25" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">ut-convallis</field>
+    <field type="CharField" name="title">Ut Convallis</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="2" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">vestibulum-leo</field>
+    <field type="CharField" name="title">Vestibulum Leo</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
+  </object>
+  <object pk="20" model="pages.page">
+    <field to="pages.template" name="template" rel="ManyToOneRel">3</field>
+    <field to="auth.user" name="user" rel="ManyToOneRel">1</field>
+    <field type="BooleanField" name="published">1</field>
+    <field type="SlugField" name="name">vivamus-gravida-dignissim</field>
+    <field type="CharField" name="title">Vivamus-Gravida Dignissim</field>
+    <field type="TextField" name="content"/>
+    <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
+    <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
   </object>
   <!-- <object pk="1" model="tagging.tag">
     <field name="name">image</field>

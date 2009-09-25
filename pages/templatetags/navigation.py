@@ -76,38 +76,55 @@ class NavigationNode(template.Node):
             node = self.parent_map[node]
         breadcrumbs.reverse()
         
-        ol = et.Element("ol")
+        div = et.Element("div", dict(id=self.mode))
+        ol = et.SubElement(div, "ol")
         for node in breadcrumbs:
-            li = et.SubElement(ol, "li", dict(id="%s_%s" % (self.mode, node.get("name"))))
-            a = et.SubElement(li, "a")
-            a.text = node.get("title")
-            for attr in ("href", "target", "class"):
-                if(node.get(attr)):
-                    a.set(attr, node.get(attr))
-            # identify home page
-            if(node == self.home_page):
-                add_class(li, "homepagelistitem")
-                add_class(a, "homepage")
-            # identify section page
-            if node in self.section_pages:
-                add_class(li, "sectionlistitem")
-                add_class(a, "section")
-            # identify current section node
-            if(node == self.current_section_node):
-                add_class(li, "currentsectionlistitem")
-                add_class(a, "currentsection")
-            # identify current node
-            if(node == self.current_node):
-                add_class(li, "currentpagelistitem")
-                add_class(a, "currentpage")
-        return et.tostring(ol, encoding="utf-8")
+            self._build_links_for(node=node, within=ol)
+        return et.tostring(div, encoding="utf-8")
     
     def two_level(self):
-        # print(self)
-        return None
+        div = et.Element("div", dict(id=self.mode))
+        ul = et.SubElement(div, "ul")
+        add_class(ul, "main")
+        submenus = dict()
+        for node in self.section_pages:
+            self._build_links_for(node=node, within=ul)
+            submenus[node] = list()
+            for second_level_node in node.findall("./node"):
+                submenus[node].append(second_level_node)
+            submenu = et.SubElement(div, "div", dict(id="%s_%s_menu" % (self.mode, node.get("name"))))
+            submenu_ul = et.SubElement(submenu, "ul")
+            for submenu_node in submenus[node]:
+                self._build_links_for(node=submenu_node, within=submenu_ul)
+        return et.tostring(div, encoding="utf-8")
+
     # def sitemap(self):
     #     pass
     
+    def _build_links_for(self, node, within):
+        li = et.SubElement(within, "li", dict(id="%s_%s" % (self.mode, node.get("name"))))
+        a = et.SubElement(li, "a")
+        a.text = node.get("title")
+        for attr in ("href", "target", "class"):
+            if(node.get(attr)):
+                a.set(attr, node.get(attr))
+        # identify home page
+        if(node == self.home_page):
+            add_class(li, "homepagelistitem")
+            add_class(a, "homepage")
+        # identify section page
+        if node in self.section_pages:
+            add_class(li, "sectionlistitem")
+            add_class(a, "section")
+        # identify current section node
+        if(node == self.current_section_node):
+            add_class(li, "currentsectionlistitem")
+            add_class(a, "currentsection")
+        # identify current node
+        if(node == self.current_node):
+            add_class(li, "currentpagelistitem")
+            add_class(a, "currentpage")
+
 
 @register.tag(name="navigation")
 def do_navigation(parser, token):
