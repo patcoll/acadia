@@ -535,10 +535,10 @@
     <field type="DateTimeField" name="created">2009-09-25 15:13:17</field>
     <field type="DateTimeField" name="modified">2009-09-25 15:13:17</field>
   </object>
-  <!-- <object pk="1" model="tagging.tag">
+  <object pk="1" model="tagging.tag">
     <field name="name">image</field>
   </object>
   <object pk="2" model="tagging.tag">
     <field name="name">document</field>
-  </object> -->
+  </object>
 </django-objects>

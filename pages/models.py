@@ -1,3 +1,4 @@
+import os.path
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
@@ -21,18 +22,23 @@ class Asset(models.Model):
     tags = tagging.fields.TagField()
     created = models.DateTimeField(auto_now_add=True, editable=False, null=True)
     modified = models.DateTimeField(auto_now=True, editable=False, null=True)
-  
+
+    class Meta:
+        ordering = ('file_name',)
+        verbose_name = 'asset'
+        verbose_name_plural = 'assets'
+
     def __unicode__(self):
-        return self.file_name.name
-    
+        return os.path.basename(self.file_name.name)
+
     def get_absolute_url(self):
         return "%sassets/%s" % (settings.MEDIA_URL, self.file_name)
-  
-    def set_tags(self, tags):
-        Tag.objects.update_tags(self, tags)
-    
-    def get_tags(self):
-        return Tag.objects.get_for_object(self)
+
+    # def set_tags(self, tags):
+    #     Tag.objects.update_tags(self, tags)
+    # 
+    # def get_tags(self):
+    #     return Tag.objects.get_for_object(self)
 tagging.register(Asset)
 
 # class Block(models.Model):
@@ -120,7 +126,12 @@ class Template(models.Model):
     # blocks = generic.GenericRelation('SiteBlock')
     editor_width = models.PositiveIntegerField(default=600)
     editor_height = models.PositiveIntegerField(default=700)
-  
+    
+    class Meta:
+        ordering = ('name',)
+        verbose_name = 'template'
+        verbose_name_plural = 'templates'
+    
     def __unicode__(self):
         return self.name
 
