@@ -9,6 +9,9 @@
 		<p>({{ page.template }})</p>
 		{% navigation two_level %}
 		{% navigation breadcrumb %}
+		{% navigation section_nav %}
+		{% navigation sitemap %}
+		{% navigation yahoo_menu_bar %}
 		{% block content %}{{ page.content|markdown }}{% endblock %}
 		{% block template %}test{% endblock %}
 	</body>
