@@ -14,11 +14,6 @@ def add_class(obj, c=""):
     return obj.set("class", value)
 
 class NavigationNode(template.Node):
-    # TODO: implement section_nav
-    # TODO: implement sitemap
-    # TODO: implement two_level
-    # TODO: implement yahoo_menu_bar
-
     def __init__(self, mode, xml="", xml_file=None):
         self.mode = mode
         self.xml = xml
@@ -33,8 +28,6 @@ class NavigationNode(template.Node):
         self.content_type = None
         
     def render(self, context):
-        # if not hasattr(self, self.mode):
-        #     raise AttributeError, "%r is not a valid navigation mode" % str(self.mode)
         try:
             nav_node = context['nav_node']
         except:
@@ -46,63 +39,129 @@ class NavigationNode(template.Node):
         self.parent_map = dict((c, p) for p in self.tree.getiterator() for c in p)
         
         # home page
-        self.home_page = self.navigation.find("node")
+        self.home_page = self.navigation[0]
         
         # hard-code section pages to be the direct sub-elements of the home page.
-        self.section_pages = self.home_page.findall("./node")
+        self.section_pages = self.home_page.getchildren()
 
         self.current_node = None
         self.current_section_node = None
+        self.current_path = list()
         
         for node in self.navigation.getiterator("node"):
             if int(node.get("contenttype")) == int(self.content_type.id) and int(node.get("objectid")) == int(nav_node.id):
                 self.current_node = n = node
                 while n.tag == "node":
+                    self.current_path.append(n)
                     if(self.parent_map[n] == self.home_page):
                         self.current_section_node = n
                     n = self.parent_map[n]
-        
+
+        self.current_path.reverse()
+
         return getattr(self, self.mode, "two_level")()
-    
+
     def breadcrumb(self):
         if self.current_node is None:
             raise ValueError, "Cannot create breadcrumb menu from non-existant current_node"
-        
-        breadcrumbs = list()
-        
-        node = self.current_node
-        while node.tag == "node":
-            breadcrumbs.append(node)
-            node = self.parent_map[node]
-        breadcrumbs.reverse()
-        
         div = et.Element("div", dict(id=self.mode))
         ol = et.SubElement(div, "ol")
-        for node in breadcrumbs:
-            self._build_links_for(node=node, within=ol)
+        for node in self.current_path:
+            li = self._build_li_for(node)
+            ol.append(li)
+        if(len(ol.getchildren()) <= 1):
+            return ""
         return et.tostring(div, encoding="utf-8")
-    
+
     def two_level(self):
         div = et.Element("div", dict(id=self.mode))
         ul = et.SubElement(div, "ul")
         add_class(ul, "main")
         submenus = dict()
         for node in self.section_pages:
-            self._build_links_for(node=node, within=ul)
+            li = self._build_li_for(node)
+            ul.append(li)
             submenus[node] = list()
-            for second_level_node in node.findall("./node"):
+            for second_level_node in node.getchildren():
                 submenus[node].append(second_level_node)
             submenu = et.SubElement(div, "div", dict(id="%s_%s_menu" % (self.mode, node.get("name"))))
             submenu_ul = et.SubElement(submenu, "ul")
             for submenu_node in submenus[node]:
-                self._build_links_for(node=submenu_node, within=submenu_ul)
+                submenu_li = self._build_li_for(submenu_node)
+                submenu_ul.append(submenu_li)
+        if ul.getchildren() == []:
+            return ""
         return et.tostring(div, encoding="utf-8")
 
-    # def sitemap(self):
-    #     pass
+    def section_nav(self):
+        div = et.Element("div", dict(id=self.mode))
+        ul = et.SubElement(div, "ul")
+
+        i = 0
+        for node in self.current_path[1:]:
+            li = self._build_li_for(node)
+            if i == 0:
+                ul.append(li)
+            else:
+                for item in ul.getiterator("li"):
+                    if item.get("id") == li.get("id"):
+                        li = item
+            if node.getchildren() == []:
+                continue
+            ul = et.SubElement(li, "ul")
+            for child in node.getchildren():
+                child_li = self._build_li_for(child)
+                ul.append(child_li)
+            i += 1
+        if ul.getchildren() == []:
+            return ""
+        return et.tostring(div, encoding="utf-8")
     
-    def _build_links_for(self, node, within):
-        li = et.SubElement(within, "li", dict(id="%s_%s" % (self.mode, node.get("name"))))
+    def sitemap(self):
+        div = et.Element("div", dict(id=self.mode))
+        ul = et.SubElement(div, "ul")
+        
+        def process_node(node, within):
+            li = self._build_li_for(node)
+            within.append(li)
+            children = node.getchildren()
+            if children != []:
+                ul = et.SubElement(li, "ul")
+                for child in children:
+                    process_node(child, within=ul)
+        process_node(self.home_page, within=ul)
+        
+        return et.tostring(div, encoding="utf-8")
+    
+    def yahoo_menu_bar(self):
+        div = et.Element("div", dict(id=self.mode))
+        add_class(div, "yuimenubar yuimenubarnav")
+        bd = et.SubElement(div, "div")
+        add_class(bd, "bd")
+        ul = et.SubElement(bd, "ul")
+        for node in self.section_pages:
+            li = self._build_li_for(node)
+            add_class(li, "yuimenubaritem")
+            ul.append(li)
+            children = node.getchildren()
+            if children != []:
+                submenu_div = et.SubElement(li, "div")
+                add_class(submenu_div, "yuimenu")
+                submenu_bd = et.SubElement(submenu_div, "div")
+                add_class(submenu_bd, "bd")
+                submenu_ul = et.SubElement(submenu_bd, "ul")
+                for child in children:
+                    submenu_li = self._build_li_for(child)
+                    add_class(submenu_li, "yuimenuitem")
+                    submenu_ul.append(submenu_li)
+        if ul.getchildren() == []:
+            return ""
+        return et.tostring(div, encoding="utf-8")
+
+    def _build_li_for(self, node):
+        li = et.Element("li", {
+            'id': "%s_%s_%s" % (node.get("name"), node.get("contenttype"), node.get("objectid")),
+        })
         a = et.SubElement(li, "a")
         a.text = node.get("title")
         for attr in ("href", "target", "class"):
@@ -116,6 +175,10 @@ class NavigationNode(template.Node):
         if node in self.section_pages:
             add_class(li, "sectionlistitem")
             add_class(a, "section")
+        # identify current path
+        if node in self.current_path:
+            add_class(li, "currentpathlistitem")
+            add_class(a, "currentpath")
         # identify current section node
         if(node == self.current_section_node):
             add_class(li, "currentsectionlistitem")
@@ -124,6 +187,7 @@ class NavigationNode(template.Node):
         if(node == self.current_node):
             add_class(li, "currentpagelistitem")
             add_class(a, "currentpage")
+        return li
 
 
 @register.tag(name="navigation")
@@ -131,7 +195,7 @@ def do_navigation(parser, token):
     try:
         tag_name, navigation_mode = token.split_contents()
     except ValueError:
-        navigation_mode = "sitemap"
+        navigation_mode = None
 
     from pages import settings
     return NavigationNode(mode=navigation_mode, xml_file=settings.NAVIGATION_XML)
