@@ -5,21 +5,24 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from django.conf import settings
 
-import mptt
+# import mptt
 import tagging
-import tagging.fields
+from tagging.fields import TagField
 from tagging.models import Tag
 
-# from django.core.files.storage import FileSystemStorage
-# ASSETS = FileSystemStorage(location=settings.ASSETS)
+def tagging_register(model):
+    try:
+        tagging.register(model)
+    except tagging.AlreadyRegistered:
+        pass
 
 class Asset(models.Model):
     user = models.ForeignKey(User)
     active = models.BooleanField(default=True)
     mime_type = models.CharField(max_length=255)
-    file_name = models.FileField(upload_to='assets', max_length=255)
+    file_name = models.FileField(upload_to=settings.ASSET_DIRECTORY, max_length=255)
     title = models.CharField(max_length=255, null=True, blank=True)
-    tags = tagging.fields.TagField()
+    tags = TagField()
     created = models.DateTimeField(auto_now_add=True, editable=False, null=True)
     modified = models.DateTimeField(auto_now=True, editable=False, null=True)
 
@@ -34,12 +37,12 @@ class Asset(models.Model):
     def get_absolute_url(self):
         return "%sassets/%s" % (settings.MEDIA_URL, self.file_name)
 
-    # def set_tags(self, tags):
-    #     Tag.objects.update_tags(self, tags)
-    # 
-    # def get_tags(self):
-    #     return Tag.objects.get_for_object(self)
-tagging.register(Asset)
+    def set_tags(self, tags):
+        Tag.objects.update_tags(self, tags)
+    
+    def get_tags(self):
+        return Tag.objects.get_for_object(self)
+tagging_register(Asset)
 
 # class Block(models.Model):
 #   block_type = models.ForeignKey('BlockType')
@@ -52,14 +55,19 @@ tagging.register(Asset)
 #   def __unicode__(self):
 #     return self.name
 # 
-# class BlockType(models.Model):
-#   name = models.SlugField(max_length=255, unique=True)
-#   title = models.CharField(max_length=255)
-#   editor_width = models.PositiveIntegerField(default=600)
-#   editor_height = models.PositiveIntegerField(default=700)
-#   
-#   def __unicode__(self):
-#     return self.name
+class BlockType(models.Model):
+    name = models.SlugField(max_length=255, unique=True)
+    title = models.CharField(max_length=255)
+    editor_width = models.PositiveIntegerField(default=600)
+    editor_height = models.PositiveIntegerField(default=700)
+    
+    class Meta:
+        ordering = ('name',)
+        verbose_name = 'block type'
+        verbose_name_plural = 'block types'
+    
+    def __unicode__(self):
+        return self.name
 
 # class Link(models.Model):
 #   title = models.CharField(max_length=255)
@@ -70,6 +78,13 @@ tagging.register(Asset)
 #   def __unicode__(self):
 #     return self.url
 
+# class Navigation(models.Model):
+#     def __init__(self, *args, **kwargs):
+#         super(Navigation, self).__init__(*args, **kwargs)
+#     class Meta:
+#         managed = False
+#         verbose_name = 'navigation'
+#         verbose_name_plural = 'navigation'
 # class Navigation(models.Model):
 #   content_type = models.ForeignKey(ContentType)
 #   object_id = models.PositiveIntegerField()
@@ -100,6 +115,19 @@ class Page(models.Model):
     
     def get_absolute_url(self):
         return "/%d/%s/" % (self.id, self.name)
+
+class Menu(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+    title = models.CharField(max_length=255)
+
+    class Meta:
+        ordering = ('title',)
+
+    def __unicode__(self):
+        return self.title
+    
+    def get_xml(self):
+        pass
 
 # class Setting(models.Model):
 #   name = models.SlugField(max_length=255, unique=True)
@@ -134,8 +162,4 @@ class Template(models.Model):
     
     def __unicode__(self):
         return self.name
-
-
-# signals
-# import django.db.models.signals
 

@@ -2,7 +2,7 @@ from django.core.management.base import BaseCommand
 from django.core.management.color import no_style
 from optparse import make_option
 from pages import settings
-from django.contrib.contenttypes.models import ContentType
+from newcms.pages.utils import content_type_slug_for_obj
 from pages.models import Page, User
 import os
 import sys
@@ -104,12 +104,11 @@ Not In Navigation:
     Consectetur Tellus:
     Pellentesque:
 """
-    # args = '[appname ...]'
 
     def __init__(self):
-        BaseCommand.__init__(self)
+        super(Command, self).__init__()
         self.style = no_style()
-        self.content_type = ContentType.objects.get_for_model(Page)
+        self.content_type = content_type_slug_for_obj(Page)
         self.default_user = User.objects.get(id=1)
 
     def _parse_sitemap(self, list_node, menu_node):
@@ -125,7 +124,7 @@ Not In Navigation:
             n = et.SubElement(menu_node, "node")
             p = Page(title=title, name=slugify(title), user=self.default_user)
             p.save()
-            xml_attr = dict(title=p.title, name=p.name, href=p.get_absolute_url(), contenttype=str(self.content_type.id), objectid=str(p.id))
+            xml_attr = dict(title=p.title, name=p.name, href=p.get_absolute_url(), contenttype=str(self.content_type), objectid=str(p.id))
             for key, value in xml_attr.items():
                 n.set(key, value)
             if children is not None:
@@ -162,8 +161,8 @@ Not In Navigation:
         sitemap_file = options.get("sitemap_file", settings.SITEMAP_FILE)
         if not os.path.exists(sitemap_file):
             sys.exit("File not found:\n  %s" % sitemap_file)
+        print("Using the following sitemap file:\n  %s" % sitemap_file)
         print("Importing the sitemap will delete all existing Page objects.\nAre you sure? [y/N]")
-
         read = sys.stdin.readline()
         if read.strip().lower() != 'y':
             sys.exit(1)

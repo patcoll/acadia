@@ -32,3 +32,6 @@ http://django-mptt.googlecode.com/svn/trunk/
 
 -e git://github.com/ericflo/django-sorting.git#egg=django-sorting
 -e svn+http://django-app-plugins.googlecode.com/svn/trunk#egg=django-app-plugins
+
+# this does not work b/c there's no setup.py -- best to check it out manually.
+# -e svn+http://django-grappelli.googlecode.com/svn/branches/grappelli_2#egg=grappelli
