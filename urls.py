@@ -2,7 +2,7 @@ from django.conf.urls.defaults import *
 from django.conf import settings
 
 # Uncomment the next two lines to enable the admin:
-from django.contrib import admin
+from newcms.admin import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -18,7 +18,11 @@ urlpatterns = patterns('',
 
 if settings.DEBUG:
     urlpatterns += patterns('',
+        # TODO: uncomment to enable retrieval of django admin media from a custom directory.
+        # (r'^media/admin/(.*)$', 'django.views.static.serve', dict(document_root=settings.ADMIN_MEDIA_ROOT)),
+        # Admin media to load AFTER django admin media
+        (r'^media/adminmore/(.*)$', 'django.views.static.serve', dict(document_root=settings.ADMIN_MEDIAMORE_ROOT)),
         (r'^media/(.*)$', 'django.views.static.serve', dict(document_root=settings.MEDIA_ROOT)),
-        (r'^assets/(.*)$', 'django.views.static.serve', dict(document_root=settings.ASSETS)),
+        (r'^assets/(.*)$', 'django.views.static.serve', dict(document_root=settings.ASSETS_ROOT)),
         (r'^(favicon\.ico|robots\.txt)$', 'django.views.static.serve', dict(document_root=settings.MEDIA_ROOT)),
     )

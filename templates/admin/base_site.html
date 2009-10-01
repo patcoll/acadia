@@ -1,10 +1,15 @@
 {% extends "admin/base.html" %}
-{% load i18n %}
+{% load i18n settings %}
 
-{% block title %}{{ title }} | {% trans 'Site Title CMS' %}{% endblock %}
+{% block title %}{{ title }} | {% cms_title %}{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% load adminmediamore %}{% admin_mediamore_prefix %}css/base.css" />
+{% endblock %}
 
 {% block branding %}
-<h1 id="site-name">{% trans 'Site Title' %}</h1>
+<h1 id="site-name">{% site_title %}</h1>
 {% endblock %}
 
 {% block nav-global %}{% endblock %}

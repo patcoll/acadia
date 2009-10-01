@@ -1,5 +1,5 @@
 from django import template
-from django.contrib.contenttypes.models import ContentType
+from newcms.pages.utils import content_type_slug_for_obj
 import elementtree.ElementTree as et
 
 register = template.Library()
@@ -13,9 +13,11 @@ def add_class(obj, c=""):
         value = "%s %s" % (obj.get("class"), value)
     return obj.set("class", value)
 
-class NavigationNode(template.Node):
+class MenuNode(template.Node):
     def __init__(self, mode, xml="", xml_file=None):
         self.mode = mode
+        if self.mode is None:
+            self.mode = "two_level"
         self.xml = xml
         if xml_file is not None:
             try:
@@ -32,8 +34,8 @@ class NavigationNode(template.Node):
             nav_node = context['nav_node']
         except:
             raise ValueError, "the variable 'nav_node' must exist in the context and be assigned to the object currently being viewed in the navigation"
-        
-        self.content_type = ContentType.objects.get_for_model(nav_node)
+
+        self.content_type = content_type_slug_for_obj(nav_node)
         self.menus = dict((menu.get("name"), menu) for menu in self.tree.getiterator("menu"))
         self.navigation = self.menus['navigation']
         self.parent_map = dict((c, p) for p in self.tree.getiterator() for c in p)
@@ -49,7 +51,7 @@ class NavigationNode(template.Node):
         self.current_path = list()
         
         for node in self.navigation.getiterator("node"):
-            if int(node.get("contenttype")) == int(self.content_type.id) and int(node.get("objectid")) == int(nav_node.id):
+            if str(node.get("contenttype")) == str(self.content_type) and int(node.get("objectid")) == int(nav_node.id):
                 self.current_node = n = node
                 while n.tag == "node":
                     self.current_path.append(n)
@@ -59,18 +61,18 @@ class NavigationNode(template.Node):
 
         self.current_path.reverse()
 
-        return getattr(self, self.mode, "two_level")()
+        return getattr(self, self.mode)()
 
     def breadcrumb(self):
         if self.current_node is None:
             raise ValueError, "Cannot create breadcrumb menu from non-existant current_node"
         div = et.Element("div", dict(id=self.mode))
         ol = et.SubElement(div, "ol")
+        if(len(self.current_path) == 1):
+            return ""
         for node in self.current_path:
             li = self._build_li_for(node)
             ol.append(li)
-        if(len(ol.getchildren()) <= 1):
-            return ""
         return et.tostring(div, encoding="utf-8")
 
     def two_level(self):
@@ -189,13 +191,12 @@ class NavigationNode(template.Node):
             add_class(a, "currentpage")
         return li
 
-
-@register.tag(name="navigation")
-def do_navigation(parser, token):
+def do_menu(parser, token):
     try:
         tag_name, navigation_mode = token.split_contents()
     except ValueError:
         navigation_mode = None
 
     from pages import settings
-    return NavigationNode(mode=navigation_mode, xml_file=settings.NAVIGATION_XML)
+    return MenuNode(mode=navigation_mode, xml_file=settings.NAVIGATION_XML)
+register.tag('menu', do_menu)

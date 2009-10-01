@@ -1,0 +1,11 @@
+.submit-row {
+	text-align: left;
+}
+
+.submit-row input.default {
+	float: none;
+}
+
+.submit-row p.deletelink-box {
+	float: right;
+}

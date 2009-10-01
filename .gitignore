@@ -1,4 +1,5 @@
 .DS_Store
+.svn
 *.pyc
-tmp/**
-public/media/assets/**
+media/assets/*
+pip-log.txt

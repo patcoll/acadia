@@ -8,7 +8,7 @@ CURDIR = os.path.realpath(os.path.dirname(__file__))
 
 # Absolute path to the directory that holds media.
 MEDIA_ROOT = os.path.join(CURDIR, 'media')
-ASSETS = os.path.join(MEDIA_ROOT, 'assets')
+ASSETS_ROOT = os.path.join(MEDIA_ROOT, 'assets')
 
 ADMINS = (
     ('Pat Collins', 'pat@walltowall.com'),
@@ -26,11 +26,12 @@ DATABASE_PASSWORD = 'root'     # Not used with sqlite3.
 DATABASE_HOST = '127.0.0.1'       # Set to empty string for localhost. Not used with sqlite3.
 DATABASE_PORT = ''       # Set to empty string for default. Not used with sqlite3.
 
-# ADMIN_EMAIL = 'pat@walltowall.com'
+ADMIN_EMAIL = 'pat@walltowall.com'
 SITE_TITLE = 'Test Site'
 SITE_META_KEYWORDS = ''
 SITE_META_DESCRIPTION = ''
-CMS_TITLE = 'CMS'
+
+GRAPPELLI_ADMIN_TITLE = CMS_TITLE = 'W|W CMS'
 
 # TEMPLATES = {
 #     'home': { 'width': 600, 'height': 700 },
@@ -65,6 +66,12 @@ USE_I18N = True
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
 MEDIA_URL = '/media/'
 
+ASSET_DIRECTORY = 'assets/'
+ASSETS_URL = MEDIA_URL + ASSET_DIRECTORY
+
+# FILEBROWSER_URL_WWW = MEDIA_URL + 'assets/'
+# FILEBROWSER_DIRECTORY = "assets/"
+
 # if DEBUG:
 #     MEDIA_URL = '/static/media/'
 # else:
@@ -73,7 +80,15 @@ MEDIA_URL = '/media/'
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/static/admin/media/'
+ADMIN_MEDIA_PREFIX = '/media/admin/'
+# TODO: uncomment to enable retrieval of django admin media from a custom directory.
+# if DEBUG:
+#     ADMIN_MEDIA_PREFIX = 'http://127.0.0.1:8000/media/admin/'
+# ADMIN_MEDIA_ROOT = os.path.join(CURDIR, "media", "admin")
+
+# Admin media to load AFTER django admin media
+ADMIN_MEDIAMORE_PREFIX = '/media/adminmore/'
+ADMIN_MEDIAMORE_ROOT = os.path.join(CURDIR, "media", "adminmore")
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '$*G-PG2L^MC*N@^O*$V5AS(0!73UF(FU(B@P!2J@!K7%6CA@&+'
@@ -85,6 +100,14 @@ TEMPLATE_LOADERS = (
     # 'django.template.loaders.eggs.load_template_source',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.request',
+)
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -93,7 +116,7 @@ MIDDLEWARE_CLASSES = (
 
 # to append slash, always have trailing slash in urlconf
 APPEND_SLASH = True
-ROOT_URLCONF = 'urls'
+ROOT_URLCONF = 'newcms.urls'
 
 # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
 # Always use forward slashes, even on Windows.
@@ -108,14 +131,13 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.admin',
+    'django.contrib.admindocs',
     'django.contrib.markup',
-    'MySQLdb',
-    'mptt',
-    'tagging',
-    'yaml',
+    # cms apps
+    'newcms.pages',
+    'newcms.news',
+    # helper apps
     'reversion',
     'south',
-    # cms apps
-    'pages',
-    'news',
+    'tagging',
 )
