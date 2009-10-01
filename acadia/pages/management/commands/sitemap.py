@@ -2,7 +2,7 @@ from django.core.management.base import BaseCommand
 from django.core.management.color import no_style
 from optparse import make_option
 from pages import settings
-from newcms.pages.utils import content_type_slug_for_obj
+from acadia.pages.utils import content_type_slug_for_obj
 from pages.models import Page, User
 import os
 import sys

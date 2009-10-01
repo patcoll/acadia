@@ -1,6 +1,6 @@
-from newcms.admin import admin
+from acadia.admin import admin
 from reversion.admin import VersionAdmin
-from newcms.pages.models import Asset, Menu, Page, Template
+from acadia.pages.models import Asset, Menu, Page, Template
 from django.contrib.admin.util import unquote
 
 class AssetAdmin(admin.ModelAdmin):

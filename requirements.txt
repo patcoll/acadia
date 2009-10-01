@@ -1,0 +1,47 @@
+#
+# for use with pip
+#
+
+# Django
+-e svn+http://code.djangoproject.com/svn/django/trunk#egg=django
+
+# db adapters (pick one)
+# MySQL-python==1.2.3c1
+# psycopg2
+pysqlite
+
+# simple data formats
+simplejson
+pyyaml
+
+django-reversion
+South
+
+http://django-tagging.googlecode.com/svn/trunk/
+
+elementtree
+
+-e git+git://github.com/pinax/diff-match-patch.git#egg=diff-match-patch
+
+
+# python utilities
+# python-dateutil
+# docutils
+# feedparser
+# gdata
+# Pygments
+# http://www.crummy.com/software/BeautifulSoup/download/3.x/BeautifulSoup-3.0.7a.tar.gz
+# http://pypi.python.org/packages/source/M/Markdown/Markdown-2.0.tar.gz
+# -e git+git://github.com/pinax/atom-format.git#egg=atom-format
+# django-pagination
+# django-robots
+# django-threadedcomments
+# django-extensions
+# django-timezones
+# django-bookmarks
+# http://django-mptt.googlecode.com/svn/trunk/
+# -e git://github.com/ericflo/django-sorting.git#egg=django-sorting
+# -e svn+http://django-app-plugins.googlecode.com/svn/trunk#egg=django-app-plugins
+
+# this does not work b/c there's no setup.py -- best to check it out manually.
+# -e svn+http://django-grappelli.googlecode.com/svn/branches/grappelli_2#egg=grappelli

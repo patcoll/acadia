@@ -1,5 +1,6 @@
 .DS_Store
 .svn
 *.pyc
+*.sqlite
 media/assets/*
 pip-log.txt

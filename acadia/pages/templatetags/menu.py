@@ -1,5 +1,5 @@
 from django import template
-from newcms.pages.utils import content_type_slug_for_obj
+from acadia.pages.utils import content_type_slug_for_obj
 import elementtree.ElementTree as et
 
 register = template.Library()

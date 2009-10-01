@@ -7,8 +7,8 @@ urlpatterns = patterns('',
 )
 
 # custom admin views
-# from newcms.admin import admin
-# from newcms.pages.views.menus import edit
+# from acadia.admin import admin
+# from acadia.pages.views.menus import edit
 # 
 # admin_urlpatterns = patterns('',
 #     url(r'^navigation/$', admin.site.admin_view(edit))

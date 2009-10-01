@@ -11,27 +11,27 @@ MEDIA_ROOT = os.path.join(CURDIR, 'media')
 ASSETS_ROOT = os.path.join(MEDIA_ROOT, 'assets')
 
 ADMINS = (
-    ('Pat Collins', 'pat@walltowall.com'),
+    ('Pat Collins', 'pat@burned.com'),
 )
 
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = 'mysql'       # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+DATABASE_ENGINE = 'sqlite3'       # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
 DATABASE_OPTIONS = {
     # "init_command": "SET storage_engine=INNODB",
 }
-DATABASE_NAME = 'newcms'       # Or path to database file if using sqlite3.
-DATABASE_USER = 'root'       # Not used with sqlite3.
-DATABASE_PASSWORD = 'root'     # Not used with sqlite3.
-DATABASE_HOST = '127.0.0.1'       # Set to empty string for localhost. Not used with sqlite3.
-DATABASE_PORT = ''       # Set to empty string for default. Not used with sqlite3.
+DATABASE_NAME = 'acadia.sqlite'       # Or path to database file if using sqlite3.
+# DATABASE_USER = 'root'       # Not used with sqlite3.
+# DATABASE_PASSWORD = 'root'     # Not used with sqlite3.
+# DATABASE_HOST = '127.0.0.1'       # Set to empty string for localhost. Not used with sqlite3.
+# DATABASE_PORT = ''       # Set to empty string for default. Not used with sqlite3.
 
-ADMIN_EMAIL = 'pat@walltowall.com'
+ADMIN_EMAIL = 'pat@burned.com'
 SITE_TITLE = 'Test Site'
 SITE_META_KEYWORDS = ''
 SITE_META_DESCRIPTION = ''
 
-GRAPPELLI_ADMIN_TITLE = CMS_TITLE = 'W|W CMS'
+GRAPPELLI_ADMIN_TITLE = CMS_TITLE = 'Acadia'
 
 # TEMPLATES = {
 #     'home': { 'width': 600, 'height': 700 },
@@ -116,7 +116,7 @@ MIDDLEWARE_CLASSES = (
 
 # to append slash, always have trailing slash in urlconf
 APPEND_SLASH = True
-ROOT_URLCONF = 'newcms.urls'
+ROOT_URLCONF = 'acadia.urls'
 
 # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
 # Always use forward slashes, even on Windows.
@@ -134,8 +134,8 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'django.contrib.markup',
     # cms apps
-    'newcms.pages',
-    'newcms.news',
+    'acadia.pages',
+    'acadia.news',
     # helper apps
     'reversion',
     'south',

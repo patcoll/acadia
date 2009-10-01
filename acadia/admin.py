@@ -1,4 +1,3 @@
-# Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 
 class CustomAdminSite(admin.sites.AdminSite):
@@ -14,7 +13,7 @@ class CustomAdminSite(admin.sites.AdminSite):
         # my_urls = patterns('',
         #     url(r'^nav/$', self.admin_view(some_view))
         # )
-        # from newcms.pages.urls import admin_urlpatterns as pages_admin_urlpatterns
+        # from acadia.pages.urls import admin_urlpatterns as pages_admin_urlpatterns
         # return pages_admin_urlpatterns + urls
         return urls
 
