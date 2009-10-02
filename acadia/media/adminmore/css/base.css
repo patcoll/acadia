@@ -1,3 +1,27 @@
+#header {
+	background: #5B80B2;
+}
+
+#branding h1 {
+	color: #fff;
+}
+
+/*a:link, a:visited {
+	color: #777;
+}*/
+
+/*a:hover {
+	color: #333;
+}*/
+
+h1 {
+	color: #444;
+}
+
+.module h2, .module caption, .inline-group h2 {
+	background: #5B80B2;
+}
+
 .submit-row {
 	text-align: left;
 }
@@ -9,3 +33,4 @@
 .submit-row p.deletelink-box {
 	float: right;
 }
+
