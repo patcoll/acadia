@@ -11,7 +11,7 @@
     <field name="is_active">1</field>
     <field name="is_superuser">1</field>
   </object>
-
+  <!-- menus -->
   <object pk="1" model="pages.menu">
     <field name="name">navigation</field>
     <field name="title">Navigation</field>
@@ -20,7 +20,7 @@
     <field name="name">not_in_navigation</field>
     <field name="title">Not In Navigation</field>
   </object>
-
+  <!-- block types -->
   <object pk="1" model="pages.blocktype">
     <field name="name">side</field>
     <field name="title">Sidebar Block</field>
