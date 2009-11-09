@@ -2,7 +2,9 @@ from django.conf.urls.defaults import *
 from django.conf import settings
 
 # Uncomment the next two lines to enable the admin:
-from acadia.admin import admin
+from django.contrib import admin
+from acadia.admin import CustomAdminSite
+admin.site = CustomAdminSite()
 admin.autodiscover()
 
 urlpatterns = patterns('',

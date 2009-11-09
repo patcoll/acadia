@@ -1,4 +1,4 @@
-from acadia.admin import admin
+from django.contrib import admin
 from reversion.admin import VersionAdmin
 from acadia.pages.models import Asset, Menu, Page, Template
 from django.contrib.admin.util import unquote
