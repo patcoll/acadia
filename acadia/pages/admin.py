@@ -39,7 +39,6 @@ class MenuAdmin(admin.ModelAdmin):
         }
         return super(MenuAdmin, self).change_view(request, object_id, 
             extra_context=my_context)
-
 admin.site.register(Menu, MenuAdmin)
 
 class PageAdmin(VersionAdmin):
