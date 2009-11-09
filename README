@@ -15,6 +15,8 @@ To install under a virtualenv:
     easy_install -a --prefix . pip
     pip install -r /path/to/acadia/requirements.txt
 
+The pip line can be run again if you change anything in the requirements file.
+
 Then, while still "in" the virtualenv, run Acadia with the built-in Django web server:
 
     # both "acadia"s are necessary to get into the python module dir

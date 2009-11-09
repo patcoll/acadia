@@ -6,8 +6,8 @@
 -e svn+http://code.djangoproject.com/svn/django/trunk#egg=django
 
 # db adapters (pick one)
-# MySQL-python==1.2.3c1
-# psycopg2
+MySQL-python==1.2.3c1
+psycopg2
 pysqlite
 
 # simple data formats

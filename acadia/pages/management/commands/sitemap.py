@@ -34,9 +34,6 @@ def slugify(words):
         slug = re.sub(pattern, replacement, slug)
     return slug
 
-def camelize(underscored_word):
-    pass
-
 class MyLoader(yaml.Loader):
     """Custom YAML loader.
 
@@ -62,19 +59,8 @@ class MyLoader(yaml.Loader):
     def construct_undefined(self, node):
         return self.construct_scalar(node)
 
-
 MyLoader.add_constructor(u'tag:yaml.org,2002:map', MyLoader.construct_mapping)
 MyLoader.add_constructor(None, MyLoader.construct_undefined)
-
-
-# def camelize(lower_case_and_underscored_word, first_letter_in_uppercase = true)
-#   if first_letter_in_uppercase
-#     lower_case_and_underscored_word.to_s.gsub(/\/(.?)/) { "::" + $1.upcase }.gsub(/(^|_)(.)/) { $2.upcase }
-#   else
-#     lower_case_and_underscored_word.first + camelize(lower_case_and_underscored_word)[1..-1]
-#   end
-# end
-
 
 class Command(BaseCommand):
     option_list = BaseCommand.option_list + (
