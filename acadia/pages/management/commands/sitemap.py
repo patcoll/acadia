@@ -139,7 +139,7 @@ Not In Navigation:
 
         # generate "flush" sql queries from db backend for the pages table.
         # for mysql this will be a "truncate" query plus an "auto_increment" reset query.
-        for query in connection.ops.sql_flush(self.style, [Page._meta.db_table], [dict(table=Page._meta.db_table)]):
+        for query in connection.ops.sql_flush(self.style, [Page._meta.db_table], [dict(column=Page._meta.pk.attname, table=Page._meta.db_table)]):
             cursor.execute(query)
         transaction.commit_unless_managed()
 
